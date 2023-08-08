@@ -17,12 +17,13 @@ from django.conf import settings
 from django.conf.urls import url
 from django.conf.urls.static import static
 from django.contrib import admin
-from django.urls import path
+from django.urls import path, include
 
 from VegieStore.views import IndexView, AboutUsView, ContactUsView
 
 urlpatterns = [
                   path('admin/', admin.site.urls),
+                  path('cart/', include('cart.urls')),
                   url(r'^$', IndexView.as_view(), name='index'),
                   url(r'^about/$', AboutUsView.as_view(), name='about'),
                   url(r'^contact/$', ContactUsView.as_view(), name='contact'),
