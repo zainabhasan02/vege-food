@@ -71,7 +71,7 @@
                     <div class="dropdown-menu" aria-labelledby="dropdown04">
                         <a class="dropdown-item" href="{% url 'shop' %}">Shop</a>
                         <a class="dropdown-item" href="{% url 'wishlist' %}">Wishlist</a>
-                        <a class="dropdown-item" href="{% url 'single_product' %}">Single Product</a>
+                        <a class="dropdown-item" href="{% url 'index' %}">Single Product</a>
                         <a class="dropdown-item" href="{% url 'cart' %}">Cart</a>
                         <a class="dropdown-item" href="{% url 'checkout' %}">Checkout</a>
                     </div>
@@ -176,49 +176,38 @@
 <section class="ftco-section ftco-category ftco-no-pt">
     <div class="container">
         <div class="row">
-            <div class="col-md-8">
+            <div class="col-md-12">
                 <div class="row">
-                    <div class="col-md-6 order-md-last align-items-stretch d-flex">
-                        <div class="category-wrap-2 ftco-animate img align-self-stretch d-flex"
-                             style="background-image: url({% static 'images/category.jpg' %}) ;">
-                            <div class="text text-center">
-                                <h2>Vegetables</h2>
-                                <p>Protect the health of every home</p>
-                                <p><a href="#" class="btn btn-primary">Shop now</a></p>
-                            </div>
-                        </div>
-                    </div>
+                    {% for i in product_category_k %}
                     <div class="col-md-6">
                         <div class="category-wrap ftco-animate img mb-4 d-flex align-items-end"
-                             style="background-image: url({% static 'images/category-1.jpg' %}) ;">
+                             style="background-image: url('{{ i.category_image.url }}')">
+                            <!--style="background-image: url({% static 'images/category-1.jpg' %}) ;">-->
                             <div class="text px-3 py-1">
-                                <h2 class="mb-0"><a href="#">Fruits</a></h2>
-                            </div>
-                        </div>
-                        <div class="category-wrap ftco-animate img d-flex align-items-end"
-                             style="background-image: url({% static 'images/category-2.jpg' %}) ;">
-                            <div class="text px-3 py-1">
-                                <h2 class="mb-0"><a href="#">Vegetables</a></h2>
+                                <h2 class="mb-0"><a href="{% url 'product:product_category_details' i.id %}">{{i.category_name}}</a></h2>
                             </div>
                         </div>
                     </div>
+                    {% endfor %}
                 </div>
             </div>
 
-            <div class="col-md-4">
-                <div class="category-wrap ftco-animate img mb-4 d-flex align-items-end"
-                     style="background-image: url({% static 'images/category-3.jpg' %}) ;">
-                    <div class="text px-3 py-1">
-                        <h2 class="mb-0"><a href="#">Juices</a></h2>
-                    </div>
-                </div>
-                <div class="category-wrap ftco-animate img d-flex align-items-end"
-                     style="background-image: url({% static 'images/category-4.jpg' %}) ;">
-                    <div class="text px-3 py-1">
-                        <h2 class="mb-0"><a href="#">Dried</a></h2>
-                    </div>
-                </div>
-            </div>
+            <!--
+                        <div class="col-md-4">
+                            <div class="category-wrap ftco-animate img mb-4 d-flex align-items-end"
+                                 style="background-image: url({% static 'images/category-3.jpg' %}) ;">
+                                <div class="text px-3 py-1">
+                                    <h2 class="mb-0"><a href="#">Juices</a></h2>
+                                </div>
+                            </div>
+                            <div class="category-wrap ftco-animate img d-flex align-items-end"
+                                 style="background-image: url({% static 'images/category-4.jpg' %}) ;">
+                                <div class="text px-3 py-1">
+                                    <h2 class="mb-0"><a href="#">Dried</a></h2>
+                                </div>
+                            </div>
+                        </div>
+            -->
         </div>
     </div>
 </section>
@@ -259,6 +248,7 @@
                                 <a href="#" class="buy-now d-flex justify-content-center align-items-center mx-1">
                                     <span><i class="ion-ios-cart"></i></span>
                                 </a>
+
                                 <a href="#" class="heart d-flex justify-content-center align-items-center ">
                                     <span><i class="ion-ios-heart"></i></span>
                                 </a>
@@ -520,7 +510,8 @@
                 <div class="carousel-testimony owl-carousel">
                     <div class="item">
                         <div class="testimony-wrap p-4 pb-5">
-                            <div class="user-img mb-5" style="background-image: url({% static 'images/person_1.jpg' %}) ;">
+                            <div class="user-img mb-5"
+                                 style="background-image: url({% static 'images/person_1.jpg' %}) ;">
                     <span class="quote d-flex align-items-center justify-content-center">
                       <i class="icon-quote-left"></i>
                     </span>
@@ -535,7 +526,8 @@
                     </div>
                     <div class="item">
                         <div class="testimony-wrap p-4 pb-5">
-                            <div class="user-img mb-5" style="background-image: url({% static 'images/person_2.jpg' %}) ;">
+                            <div class="user-img mb-5"
+                                 style="background-image: url({% static 'images/person_2.jpg' %}) ;">
                     <span class="quote d-flex align-items-center justify-content-center">
                       <i class="icon-quote-left"></i>
                     </span>
@@ -550,7 +542,8 @@
                     </div>
                     <div class="item">
                         <div class="testimony-wrap p-4 pb-5">
-                            <div class="user-img mb-5" style="background-image: url({% static 'images/person_3.jpg' %}) ;">
+                            <div class="user-img mb-5"
+                                 style="background-image: url({% static 'images/person_3.jpg' %}) ;">
                     <span class="quote d-flex align-items-center justify-content-center">
                       <i class="icon-quote-left"></i>
                     </span>
@@ -565,7 +558,8 @@
                     </div>
                     <div class="item">
                         <div class="testimony-wrap p-4 pb-5">
-                            <div class="user-img mb-5" style="background-image: url({% static 'images/person_1.jpg' %}) ;">
+                            <div class="user-img mb-5"
+                                 style="background-image: url({% static 'images/person_1.jpg' %}) ;">
                     <span class="quote d-flex align-items-center justify-content-center">
                       <i class="icon-quote-left"></i>
                     </span>
@@ -580,7 +574,8 @@
                     </div>
                     <div class="item">
                         <div class="testimony-wrap p-4 pb-5">
-                            <div class="user-img mb-5" style="background-image: url({% static 'images/person_1.jpg' %}) ;">
+                            <div class="user-img mb-5"
+                                 style="background-image: url({% static 'images/person_1.jpg' %}) ;">
                     <span class="quote d-flex align-items-center justify-content-center">
                       <i class="icon-quote-left"></i>
                     </span>

@@ -11,7 +11,9 @@ class ProductCategoryAdmin(admin.ModelAdmin):
 
 # for improving Admin UI
 class ProductAdmin(admin.ModelAdmin):
-    list_display = ("name","out_of_stock", "price","discount_percentage","product_category","add_to_home","addtime","active")
+    list_display = (
+        "name", "product_order", "out_of_stock", "price", "discount_percentage", "product_category", "add_to_home",
+        "addtime", "active")
     search_fields = ("name",)
     list_filter = ("product_category__category_name",)
 

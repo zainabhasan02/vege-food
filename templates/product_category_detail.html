@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{{ product.title }}</title>
+    <!-- Include your CSS and JavaScript links here -->
+</head>
+<body>
+    <div class="container">
+        <h1>{{ product.title }}</h1>
+        <div class="row">
+            <div class="col-md-6">
+                <img src="{{ product.image.url }}" alt="{{ product.title }}" class="product-image">
+            </div>
+            <div class="col-md-6">
+                <p class="price">${{ product.price }}</p>
+                <p>{{ product.description }}</p>
+                <button class="btn btn-primary">Add to Cart</button>
+            </div>
+        </div>
+    </div>
+    <!-- Include your footer and script links here -->
+</body>
+</html>

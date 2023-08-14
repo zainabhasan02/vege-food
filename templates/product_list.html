@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Product List</title>
+    <!-- Include your CSS and JavaScript links here -->
+</head>
+<body>
+    <div class="container">
+        <h1>Product List</h1>
+        <div class="row">
+            {% for i in product_list_data_k %}
+            <div class="col-md-4">
+                <div class="product-card">
+                    <img src="{{ i.product_image.url }}" alt="{{ i.name }}" class="product-image">
+                    <h2>{{ i.name }}</h2>
+                    <p class="price">${{ i.price }}</p>
+                    <p>{{ i.description }}</p>
+                    <a href="{% url 'product_list' i.id %}" class="btn btn-primary">View Details</a>
+                    <button class="btn btn-secondary">Add to Cart</button>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+    <!-- Include your footer and script links here -->
+</body>
+</html>
