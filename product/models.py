@@ -49,7 +49,7 @@ class HomepageBanner(models.Model):
     order_banner = models.IntegerField(null=True, blank=True)
 
     def __str__(self):
-        return self.banner_text
+        return str(self.id)
 
     class Meta:
         ordering = ["banner_text"]
