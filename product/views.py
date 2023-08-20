@@ -16,11 +16,11 @@ class ProductCategoryDetailsListView(View):
     def get(self, request, product_category_details_id):
         prod_cat_id = ProductCategory.objects.filter(id=product_category_details_id)
         print("product_category_Details_id..", prod_cat_id)
-        product_list_data = Product.objects.filter(active=True).order_by('product_order')
-        print("product_list_data..", product_list_data)
+        product_category_list_data = ProductCategory.objects.filter(active=True).order_by('order')
+        print("product_category_list_data..", product_category_list_data)
 
         return render(request, 'product_category_detail.html', {'prod_cat_id_k': prod_cat_id,
-                                                                'product_list_data_k': product_list_data})
+                                                                'product_category_list_data_k': product_category_list_data})
 
 
 class ProductListView(View):

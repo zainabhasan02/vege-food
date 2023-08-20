@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from .models import ProductCategory, Product
+from .models import ProductCategory, Product, HomepageBanner
 
 
 # Register your models here.
@@ -18,5 +18,11 @@ class ProductAdmin(admin.ModelAdmin):
     list_filter = ("product_category__category_name",)
 
 
+class HomepageBannerAdmin(admin.ModelAdmin):
+    list_display = ("banner_text", "banner_url", "active_banner", "order_banner")
+    search_fields = ("banner_text",)
+
+
 admin.site.register(ProductCategory, ProductCategoryAdmin)
 admin.site.register(Product, ProductAdmin)
+admin.site.register(HomepageBanner, HomepageBannerAdmin)

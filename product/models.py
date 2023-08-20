@@ -28,7 +28,7 @@ class Product(models.Model):
     discount_percentage = models.IntegerField(null=True, blank=True, verbose_name="discount_percentage")
     product_category = models.ForeignKey(ProductCategory, on_delete=models.SET_NULL, null=True, blank=True,
                                          verbose_name="product_category")
-    product_order = models.IntegerField(default=0,null=True, blank=True, verbose_name="product_order")
+    product_order = models.IntegerField(default=0, null=True, blank=True, verbose_name="product_order")
     add_to_home = models.BooleanField(default=False, null=True, blank=True, verbose_name="add_to_home")
     addtime = models.DateTimeField(auto_now_add=True, null=True, blank=True, verbose_name="addtime")
     active = models.BooleanField(default=True, null=True, blank=True, verbose_name="active")
@@ -38,3 +38,18 @@ class Product(models.Model):
 
     class Meta:
         ordering = ["name"]
+
+
+class HomepageBanner(models.Model):
+    banner_image = models.ImageField(upload_to='banner_images')
+    banner_text = models.CharField(max_length=255, null=True, blank=True)
+    banner_url = models.CharField(max_length=255, null=True, blank=True)
+    button_text = models.CharField(max_length=100, null=True, blank=True)
+    active_banner = models.BooleanField(default=True, null=True, blank=True)
+    order_banner = models.IntegerField(null=True, blank=True)
+
+    def __str__(self):
+        return self.banner_text
+
+    class Meta:
+        ordering = ["banner_text"]
