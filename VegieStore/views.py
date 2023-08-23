@@ -32,9 +32,15 @@ class IndexView(View):
 
     def post(self, request):
         subscriber_email = request.POST.get('subscriber_email')
-        SubscriberEmail.objects.create(email=subscriber_email)
-
-        print("subscriber_email_saved", subscriber_email)
+        existing_email = SubscriberEmail.objects.filter(email=subscriber_email)
+        print("existing_email..", existing_email)
+        if existing_email:
+            print("Email already exists")
+            pass
+        else:
+            SubscriberEmail.objects.create(email=subscriber_email)
+            print("Created new email")
+            print("New Subscriber Email Saved:", subscriber_email)
 
         return HttpResponseRedirect(request.META.get('HTTP_REFERER', '/'))
 
