@@ -4,7 +4,7 @@ from django.views import View
 
 from product.models import ProductCategory, Product, HomepageBanner, DealOfDay
 
-from users.models import SatisfiedCustomer
+from users.models import SatisfiedCustomer, SubscriberEmail
 
 
 class IndexView(View):
@@ -27,7 +27,16 @@ class IndexView(View):
         return render(request, 'index.html',
                       {'homepage_banner_data_k': homepage_banner_data, 'product_category_k': product_category,
                        'product_list_data_k': product_list_data, 'deal_of_day_data_k': deal_of_day_data,
-                       'satisfied_customer_data_k': satisfied_customer_data})
+                       'satisfied_customer_data_k': satisfied_customer_data,
+                       })
+
+    def post(self, request):
+        subscriber_email = request.POST.get('subscriber_email')
+        SubscriberEmail.objects.create(email=subscriber_email)
+
+        print("subscriber_email_saved", subscriber_email)
+
+        return HttpResponseRedirect(request.META.get('HTTP_REFERER', '/'))
 
 
 class AboutUsView(View):

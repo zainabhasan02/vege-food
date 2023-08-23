@@ -15,3 +15,15 @@ class SatisfiedCustomer(models.Model):
 
     class Meta:
         ordering = ['name']
+
+
+class SubscriberEmail(models.Model):
+    email = models.CharField(max_length=255)
+    active_email = models.BooleanField(default=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return self.email
+
+    class Meta:
+        ordering = ['email']
