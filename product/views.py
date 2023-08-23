@@ -25,7 +25,7 @@ class ProductCategoryDetailsListView(View):
 
 class ProductListView(View):
     def get(self, request, product_list_id):
-        # filter.first
+        # Product.objects.filter.first()
         product_list_data = Product.objects.filter(id=product_list_id, active=True).order_by('product_order')
         print("product_list_data..", product_list_data)
         print("product_list_id..", product_list_id)

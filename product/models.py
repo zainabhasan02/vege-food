@@ -53,3 +53,18 @@ class HomepageBanner(models.Model):
 
     class Meta:
         ordering = ["banner_text"]
+
+
+class DealOfDay(models.Model):
+    deal_name = models.CharField(max_length=500)
+    deal_image = models.ImageField(upload_to='deal_image')
+    deal_url = models.CharField(max_length=255)
+    active_deal = models.BooleanField()
+
+    def __str__(self):
+        return self.deal_name
+
+    class Meta:
+        ordering = ["deal_name"]
+
+

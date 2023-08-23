@@ -27,7 +27,7 @@ urlpatterns = [
                   path('blog/', include('blogs.urls')),
                   path('cart/', include('cart.urls')),
                   path('product/', include('product.urls')),
-                  # path('user/', include('users.urls')),
+                  path('users/', include('users.urls')),
                   url(r'^about/$', AboutUsView.as_view(), name='about'),
                   url(r'^contact/$', ContactUsView.as_view(), name='contact'),
 

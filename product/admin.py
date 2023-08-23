@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from .models import ProductCategory, Product, HomepageBanner
+from .models import ProductCategory, Product, HomepageBanner, DealOfDay
 
 
 # Register your models here.
@@ -26,3 +26,4 @@ class HomepageBannerAdmin(admin.ModelAdmin):
 admin.site.register(ProductCategory, ProductCategoryAdmin)
 admin.site.register(Product, ProductAdmin)
 admin.site.register(HomepageBanner, HomepageBannerAdmin)
+admin.site.register(DealOfDay)
