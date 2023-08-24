@@ -39,6 +39,16 @@ class Product(models.Model):
     class Meta:
         ordering = ["name"]
 
+    def calculate_discounted_amount(self):
+        if self.discount_percentage:
+            calculated_discount = (self.price * self.discount_percentage) / 100
+            discounted_amount = self.price - calculated_discount
+
+            return discounted_amount
+
+        else:
+            return None
+
 
 class HomepageBanner(models.Model):
     banner_image = models.ImageField(upload_to='banner_images')
@@ -66,5 +76,3 @@ class DealOfDay(models.Model):
 
     class Meta:
         ordering = ["deal_name"]
-
-

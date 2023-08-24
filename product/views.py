@@ -7,10 +7,6 @@ from product.models import ProductCategory
 
 
 # Create your views here.
-class SingleProductView(View):
-    def get(self, request):
-        return render(request, 'single-product.html')
-
 
 class ProductCategoryDetailsListView(View):
     def get(self, request, product_category_details_id):
@@ -30,3 +26,11 @@ class ProductListView(View):
         print("product_list_data..", product_list_data)
         print("product_list_id..", product_list_id)
         return render(request, 'product_list.html', {'product_list_data_k': product_list_data})
+
+
+class SingleProductView(View):
+    def get(self, request, single_product_id):
+        single_product_data = Product.objects.filter(id=single_product_id, active=True).order_by('product_order')
+        print("single_product_data..", single_product_data)
+        print("single_product_id..", single_product_id)
+        return render(request, 'single-product.html', {'single_product_data_k': single_product_data })
