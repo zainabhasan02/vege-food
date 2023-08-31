@@ -3,7 +3,6 @@ from django.contrib import admin
 from users.models import SatisfiedCustomer, SubscriberEmail, ContactUs
 
 
-
 # Register your models here.
 class SatisfiedCustomerAdmin(admin.ModelAdmin):
     list_display = ("name", "position", "customer_order", "active_customer")
@@ -15,6 +14,11 @@ class SubscriberEmailAdmin(admin.ModelAdmin):
     search_fields = ("email",)
 
 
+class ContactUsAdmin(admin.ModelAdmin):
+    list_display = ("name", "email", "subject", "message")
+    search_fields = ("name",)
+
+
 admin.site.register(SatisfiedCustomer, SatisfiedCustomerAdmin)
 admin.site.register(SubscriberEmail, SubscriberEmailAdmin)
-admin.site.register(ContactUs)
+admin.site.register(ContactUs, ContactUsAdmin)

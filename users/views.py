@@ -4,6 +4,8 @@ from django.views import View
 
 from users.models import SatisfiedCustomer, SubscriberEmail
 
+from users.models import ContactUs
+
 
 # Create your views here.
 class AboutUsView(View):
@@ -30,3 +32,14 @@ class AboutUsView(View):
 class ContactUsView(View):
     def get(self, request):
         return render(request, 'contact.html')
+
+    def post(self, request):
+        name = request.POST.get('names')
+        email = request.POST.get('emails')
+        subject = request.POST.get('subjects')
+        message = request.POST.get('messages')
+
+        new_user_created = ContactUs.objects.create(name=name, email=email, subject=subject, message=message)
+        print("new_user_", new_user_created, "created..")
+
+        return HttpResponseRedirect(request.META.get('HTTP_REFERER', '/'))
