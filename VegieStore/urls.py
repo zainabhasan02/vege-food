@@ -19,7 +19,7 @@ from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import path, include
 
-from VegieStore.views import IndexView, AboutUsView, ContactUsView
+from VegieStore.views import IndexView
 
 urlpatterns = [
                   path('admin/', admin.site.urls),
@@ -28,7 +28,7 @@ urlpatterns = [
                   path('cart/', include('cart.urls')),
                   path('product/', include('product.urls')),
                   path('users/', include('users.urls')),
-                  url(r'^about/$', AboutUsView.as_view(), name='about'),
-                  url(r'^contact/$', ContactUsView.as_view(), name='contact'),
+                  # url(r'^about/$', AboutUsView.as_view(), name='about'),
+                  # url(r'^contact/$', ContactUsView.as_view(), name='contact'),
 
               ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

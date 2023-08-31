@@ -19,20 +19,20 @@
     </div>
     <div class="container">
         <div class="row">
-            {% for i in product_list_data_k %}
+            {% for product_list in product_list_data_k %}
             <div class="col-md-6 col-lg-3 ftco-animate">
                 <div class="product">
-                    <a href="#" class="img-prod"><img class="img-fluid" src="{% i.product_image.url %}"
+                    <a href="#" class="img-prod"><img class="img-fluid" src="{{ product_list.product_image.url }}"
                                                       alt="Colorlib Template">
                         <span class="status">30%</span>
                         <div class="overlay"></div>
                     </a>
                     <div class="text py-3 pb-4 px-3 text-center">
-                        <h3><a href="#">{{ i.name }}</a></h3>
+                        <h3><a href="#">{{ product_list.name }}</a></h3>
                         <div class="d-flex">
                             <div class="pricing">
-                                <p class="price"><span class="mr-2 price-dc">$120.00</span><span class="price-sale">${{ i.price }}</span>
-<!--                                <p class="price"><span class="mr-2 price-dc">$120.00</span><span class="price-sale">$80.00</span>-->
+                                <p class="price"><span class="mr-2 price-dc">$120.00</span><span class="price-sale">${{ product_list.price }}</span>
+                                    <!--                                <p class="price"><span class="mr-2 price-dc">$120.00</span><span class="price-sale">$80.00</span>-->
                                 </p>
                             </div>
                         </div>

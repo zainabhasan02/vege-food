@@ -4,7 +4,9 @@ from django.views import View
 
 from product.models import ProductCategory, Product, HomepageBanner, DealOfDay
 
-from users.models import SatisfiedCustomer, SubscriberEmail
+from users.models import SatisfiedCustomer
+
+from users.models import SubscriberEmail
 
 
 class IndexView(View):
@@ -46,13 +48,3 @@ class IndexView(View):
             print("Created new email \nNew Subscriber Email Saved:", subscriber_email)
 
         return HttpResponseRedirect(request.META.get('HTTP_REFERER', '/'))
-
-
-class AboutUsView(View):
-    def get(self, request):
-        return render(request, 'about.html')
-
-
-class ContactUsView(View):
-    def get(self, request):
-        return render(request, 'contact.html')

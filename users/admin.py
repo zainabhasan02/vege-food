@@ -1,6 +1,7 @@
 from django.contrib import admin
 
-from users.models import SatisfiedCustomer, SubscriberEmail
+from users.models import SatisfiedCustomer, SubscriberEmail, ContactUs
+
 
 
 # Register your models here.
@@ -16,3 +17,4 @@ class SubscriberEmailAdmin(admin.ModelAdmin):
 
 admin.site.register(SatisfiedCustomer, SatisfiedCustomerAdmin)
 admin.site.register(SubscriberEmail, SubscriberEmailAdmin)
+admin.site.register(ContactUs)
