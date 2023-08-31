@@ -25,12 +25,8 @@ class IndexView(View):
         print("satisfied_customer_data..", satisfied_customer_data)
 
         # Retrieve the product instance from the database based on the product_id
-        product_id = Product.objects.get(id=True)
+        product_id = Product.objects.filter().first()
         print("product_id..", product_id)
-
-        # Call the calculate_discounted_amount method to get the discounted amount
-        calculate_discounted_amount = product_id.calculate_discounted_amount()
-        print("calculate_discounted_amount..", calculate_discounted_amount)
 
         return render(request, 'index.html',
                       {'homepage_banner_data_k': homepage_banner_data, 'product_category_k': product_category,
@@ -44,11 +40,10 @@ class IndexView(View):
         print("existing_email..", existing_email)
         if existing_email:
             print("Email already exists")
-            pass
+            HttpResponseRedirect(request.META.get('HTTP_REFERER', '/'))
         else:
             SubscriberEmail.objects.create(email=subscriber_email)
-            print("Created new email")
-            print("New Subscriber Email Saved:", subscriber_email)
+            print("Created new email \nNew Subscriber Email Saved:", subscriber_email)
 
         return HttpResponseRedirect(request.META.get('HTTP_REFERER', '/'))
 

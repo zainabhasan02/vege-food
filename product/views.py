@@ -30,7 +30,6 @@ class ProductListView(View):
 
 class SingleProductView(View):
     def get(self, request, single_product_id):
-        single_product_data = Product.objects.filter(id=single_product_id, active=True).order_by('product_order')
+        single_product_data = Product.objects.filter(id=single_product_id)
         print("single_product_data..", single_product_data)
-        print("single_product_id..", single_product_id)
-        return render(request, 'single-product.html', {'single_product_data_k': single_product_data })
+        return render(request, 'single-product.html', {'single_product_data_k': single_product_data})
