@@ -2,7 +2,7 @@
 {% load static %}
 <html lang="en">
 <head>
-    <title>Vegefoods - Free Bootstrap 4 Template by Colorlib</title>
+    <title>Vegefoods - Login</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
@@ -24,7 +24,6 @@
 
     <link rel="stylesheet" href="{% static 'css/bootstrap-datepicker.css' %}">
     <link rel="stylesheet" href="{% static 'css/jquery.timepicker.css' %}">
-
 
     <link rel="stylesheet" href="{% static 'css/flaticon.css' %}">
     <link rel="stylesheet" href="{% static 'css/icomoon.css' %}">
@@ -56,107 +55,66 @@
 </div>
 <nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light" id="ftco-navbar">
     <div class="container">
-        <a class="navbar-brand" href="{% url 'index' %}">Vegefoods</a>
+        <a class="navbar-brand" href="#">Vegefoods</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav"
                 aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="oi oi-menu"></span> Menu
         </button>
 
-        <div class="collapse navbar-collapse" id="ftco-nav">
+        <!--<div class="collapse navbar-collapse" id="ftco-nav">
             <ul class="navbar-nav ml-auto">
-                <li class="nav-item"><a href="{% url 'index' %}" class="nav-link">Home</a></li>
+                <li class="nav-item active"><a href="index.html" class="nav-link">Home</a></li>
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="dropdown04" data-toggle="dropdown"
                        aria-haspopup="true" aria-expanded="false">Shop</a>
                     <div class="dropdown-menu" aria-labelledby="dropdown04">
-                        <a class="dropdown-item" href="{% url 'shop' %}">Shop</a>
-                        <a class="dropdown-item" href="{% url 'wishlist' %}">Wishlist</a>
-                        <a class="dropdown-item" href="{% url 'index' %}">Single Product</a>
-                        <a class="dropdown-item" href="{% url 'cart' %}">Cart</a>
-                        <a class="dropdown-item" href="{% url 'checkout' %}">Checkout</a>
+                        <a class="dropdown-item" href="shop.html">Shop</a>
+                        <a class="dropdown-item" href="wishlist.html">Wishlist</a>
+                        <a class="dropdown-item" href="product-single.html">Single Product</a>
+                        <a class="dropdown-item" href="cart.html">Cart</a>
+                        <a class="dropdown-item" href="checkout.html">Checkout</a>
                     </div>
                 </li>
-                <li class="nav-item"><a href="{% url 'users:about' %}" class="nav-link">About</a></li>
-                <li class="nav-item"><a href="{% url 'blog' %}" class="nav-link">Blog</a></li>
-                <li class="nav-item active"><a href="{% url 'users:contact' %}" class="nav-link">Contact</a></li>
-                <li class="nav-item cta cta-colored"><a href="{% url 'cart' %}" class="nav-link"><span
+                <li class="nav-item"><a href="about.html" class="nav-link">About</a></li>
+                <li class="nav-item"><a href="blog.html" class="nav-link">Blog</a></li>
+                <li class="nav-item"><a href="contact.html" class="nav-link">Contact</a></li>
+                <li class="nav-item cta cta-colored"><a href="cart.html" class="nav-link"><span
                         class="icon-shopping_cart"></span>[0]</a></li>
 
             </ul>
-        </div>
+        </div>-->
     </div>
 </nav>
 <!-- END nav -->
 
-<div class="hero-wrap hero-bread" style="background-image: url({% static 'images/bg_1.jpg' %});">
+<!-- Login Section -->
+<section class="ftco-section">
     <div class="container">
-        <div class="row no-gutters slider-text align-items-center justify-content-center">
-            <div class="col-md-9 ftco-animate text-center">
-                <p class="breadcrumbs"><span class="mr-2"><a href="{% url 'index' %}">Home</a></span>
-                    <span>Contact us</span></p>
-                <h1 class="mb-0 bread">Contact us</h1>
-            </div>
-        </div>
-    </div>
-</div>
-
-<section class="ftco-section contact-section bg-light">
-    <div class="container">
-        <div class="row d-flex mb-5 contact-info">
-            <div class="w-100"></div>
-            <div class="col-md-3 d-flex">
-                <div class="info bg-white p-4">
-                    <p><span>Address:</span> 198 West 21th Street, Suite 721 New York NY 10016</p>
-                </div>
-            </div>
-            <div class="col-md-3 d-flex">
-                <div class="info bg-white p-4">
-                    <p><span>Phone:</span> <a href="tel://1234567920">+ 1235 2355 98</a></p>
-                </div>
-            </div>
-            <div class="col-md-3 d-flex">
-                <div class="info bg-white p-4">
-                    <p><span>Email:</span> <a href="mailto:info@yoursite.com">info@yoursite.com</a></p>
-                </div>
-            </div>
-            <div class="col-md-3 d-flex">
-                <div class="info bg-white p-4">
-                    <p><span>Website</span> <a href="#">yoursite.com</a></p>
-                </div>
-            </div>
-        </div>
-        <div class="row block-9">
-            <div class="col-md-6 order-md-last d-flex">
-                <form method="post" action="{% url 'users:contact' %}" class="bg-white p-5 contact-form">
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                <h2 class="mb-4">Login to Your Account</h2>
+                <form method="post" action="#">
                     {% csrf_token %}
+                    <!-- Add your login form fields here -->
+                    <!-- Example: -->
                     <div class="form-group">
-                        <input type="text" id="names" name="names" class="form-control" placeholder="Your Name" required="">
+                        <input type="email" id="email" name="email" class="form-control" placeholder="Email">
                     </div>
                     <div class="form-group">
-                        <input type="text" id="emails" name="emails" class="form-control" placeholder="Your Email" required="">
+                        <input type="password" id="password" name="password" class="form-control"
+                               placeholder="Password">
                     </div>
                     <div class="form-group">
-                        <input type="text" id="subjects" name="subjects" class="form-control" placeholder="Subject" required="">
-                    </div>
-                    <div class="form-group">
-                        <textarea name="messages" id="messages" cols="30" rows="7" class="form-control"
-                                  placeholder="Message" required=""></textarea>
-                    </div>
-                    <div class="form-group">
-                        <input type="submit" value="Send Message" class="btn btn-primary py-3 px-5">
+                        <button type="submit" class="btn btn-primary px-4">Login</button>
                     </div>
                 </form>
-
-            </div>
-
-            <div class="col-md-6 d-flex">
-                <div id="map" class="bg-white"></div>
             </div>
         </div>
     </div>
 </section>
 
-<footer class="ftco-footer ftco-section">
+
+<!--<footer class="ftco-footer ftco-section">
     <div class="container">
         <div class="row">
             <div class="mouse">
@@ -182,9 +140,9 @@
                     <h2 class="ftco-heading-2">Menu</h2>
                     <ul class="list-unstyled">
                         <li><a href="#" class="py-2 d-block">Shop</a></li>
-                        <li><a href="{% url 'users:about' %}" class="py-2 d-block">About</a></li>
+                        <li><a href="#" class="py-2 d-block">About</a></li>
                         <li><a href="#" class="py-2 d-block">Journal</a></li>
-                        <li><a href="{% url 'users:contact' %}" class="py-2 d-block">Contact Us</a></li>
+                        <li><a href="#" class="py-2 d-block">Contact Us</a></li>
                     </ul>
                 </div>
             </div>
@@ -200,7 +158,7 @@
                         </ul>
                         <ul class="list-unstyled">
                             <li><a href="#" class="py-2 d-block">FAQs</a></li>
-                            <li><a href="{% url 'users:contact' %}" class="py-2 d-block">Contact</a></li>
+                            <li><a href="#" class="py-2 d-block">Contact</a></li>
                         </ul>
                     </div>
                 </div>
@@ -224,17 +182,17 @@
         <div class="row">
             <div class="col-md-12 text-center">
 
-                <p><!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+                <p>&lt;!&ndash; Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. &ndash;&gt;
                     Copyright &copy;<script>document.write(new Date().getFullYear());</script>
                     All rights reserved | This template is made with <i class="icon-heart color-danger"
                                                                         aria-hidden="true"></i> by <a
                             href="https://colorlib.com" target="_blank">Colorlib</a>
-                    <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+                    &lt;!&ndash; Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. &ndash;&gt;
                 </p>
             </div>
         </div>
     </div>
-</footer>
+</footer>-->
 
 
 <!-- loader -->

@@ -103,13 +103,12 @@
 <section class="ftco-section">
     <div class="container">
         <div class="row">
-            {% for single_product in single_product_data_k%}
             <div class="col-lg-6 mb-5 ftco-animate">
-                <a href="{{single_product.product_image.url}}" class="image-popup"><img
-                        src="{{single_product.product_image.url}}" class="img-fluid" alt="Colorlib Template"></a>
+                <a href="{{single_product_data_k.product_image.url}}" class="image-popup"><img
+                        src="{{single_product_data_k.product_image.url}}" class="img-fluid" alt="Colorlib Template"></a>
             </div>
             <div class="col-lg-6 product-details pl-md-5 ftco-animate">
-                <h3>{{single_product.name}}</h3>
+                <h3>{{single_product_data_k.name}}</h3>
                 <div class="rating d-flex">
                     <p class="text-left mr-4">
                         <a href="#" class="mr-2">5.0</a>
@@ -126,12 +125,12 @@
                         <a href="#" class="mr-2" style="color: #000;">500 <span style="color: #bbb;">Sold</span></a>
                     </p>
                 </div>
-                {% if single_product.discount_percentage %}
-                <p class="price"><span>${{single_product.calculate_discounted_amount}}</span></p>
+                {% if single_product_data_k.discount_percentage %}
+                <p class="price"><span>${{single_product_data_k.calculate_discounted_amount}}</span></p>
                 {% else %}
-                <p><span class="price">${{ single_product.price }}</span></p>
+                <p><span class="price">${{ single_product_data_k.price }}</span></p>
                 {% endif %}
-                <p>{{single_product.description}}</p>
+                <p>{{single_product_data_k.description}}</p>
                 <div class="row mt-4">
                     <div class="col-md-6">
                         <div class="form-group d-flex">
@@ -168,7 +167,6 @@
                 </div>
                 <p><a href="{% url 'cart' %}" class="btn btn-black py-3 px-5">Add to Cart</a></p>
             </div>
-            {% endfor %}
         </div>
     </div>
 </section>
@@ -185,18 +183,29 @@
     </div>
     <div class="container">
         <div class="row">
+            {% for related_product in related_products_k %}
             <div class="col-md-6 col-lg-3 ftco-animate">
                 <div class="product">
-                    <a href="#" class="img-prod"><img class="img-fluid" src="{% static 'images/product-1.jpg' %}"
+                    <a href="#" class="img-prod"><img class="img-fluid" src="{{ related_product.product_image.url }}"
                                                       alt="Colorlib Template">
-                        <span class="status">30%</span>
+
+                        {% if related_product.discount_percentage > 0 %}
+                        <span class="status">{{ related_product.discount_percentage }}%</span>
+                        {% endif %}
+
                         <div class="overlay"></div>
                     </a>
                     <div class="text py-3 pb-4 px-3 text-center">
-                        <h3><a href="#">Bell Pepper</a></h3>
+                        <h3><a href="{{related_product.name}}">{{related_product.name}}</a></h3>
                         <div class="d-flex">
                             <div class="pricing">
-                                <p class="price"><span class="mr-2 price-dc">$120.00</span><span class="price-sale">$80.00</span>
+                                <p class="price">
+                                    {% if related_product.discount_percentage %}
+                                    <span class="mr-2 price-dc">${{ related_product.price }}</span>
+                                    <span class="price-sale">${{ related_product.calculate_discounted_amount }}</span>
+                                    {% else %}
+                                    <span class="price-sale">${{ related_product.price }}</span>
+                                    {% endif %}
                                 </p>
                             </div>
                         </div>
@@ -217,7 +226,8 @@
                     </div>
                 </div>
             </div>
-            <div class="col-md-6 col-lg-3 ftco-animate">
+            {% endfor %}
+            <!--<div class="col-md-6 col-lg-3 ftco-animate">
                 <div class="product">
                     <a href="#" class="img-prod"><img class="img-fluid" src="{% static 'images/product-2.jpg' %}"
                                                       alt="Colorlib Template">
@@ -306,7 +316,7 @@
                         </div>
                     </div>
                 </div>
-            </div>
+            </div>-->
         </div>
     </div>
 </section>
@@ -472,6 +482,10 @@
 		    });
 
 		});
+
+
+
+
 
 
 
