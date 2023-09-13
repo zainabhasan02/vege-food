@@ -11,10 +11,10 @@ from users.models import SubscriberEmail
 
 class IndexView(View):
     def get(self, request):
-        product_category = ProductCategory.objects.filter(active=True).order_by('order')
+        product_category = ProductCategory.objects.filter(add_to_homepage=True).order_by('order')
         print("product_category..", product_category)
 
-        product_list_data = Product.objects.filter(active=True).order_by('product_order')
+        product_list_data = Product.objects.filter(add_to_home=True).order_by('product_order')
         print("product_list_data..Index", product_list_data)
 
         homepage_banner_data = HomepageBanner.objects.filter(active_banner=True).order_by('order_banner')
@@ -28,7 +28,9 @@ class IndexView(View):
 
         # Retrieve the product instance from the database based on the product_id
         product_id = Product.objects.filter().first()
-        print("product_id..", product_id)
+        # You can access its ID like this:
+        product_ids = Product.id
+        print("product_ids..", product_ids)
 
         return render(request, 'index.html',
                       {'homepage_banner_data_k': homepage_banner_data, 'product_category_k': product_category,

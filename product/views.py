@@ -37,5 +37,11 @@ class SingleProductView(View):
             id=single_product_id)
         print("related_products..", related_products)
 
-        return render(request, 'single-product.html',
-                      {'single_product_data_k': single_product_ID, 'related_products_k': related_products})
+        context = {
+            'single_product_data_k': single_product_ID,
+            'related_products_k': related_products,
+        }
+
+        return render(request, 'single-product.html', context)
+
+

@@ -192,8 +192,8 @@
                              style="background-image: url('{{ product_category.category_image.url }}')">
                             <!--style="background-image: url({% static 'images/category-1.jpg' %}) ;">-->
                             <div class="text px-3 py-1">
-                                <h2 class="mb-0"><a
-                                        href="{% url 'product:product_category_details' product_category.id %}">{{product_category.category_name}}</a>
+                                <!--<h2 class="mb-0"><a href="{{product_category.category_name}}">{{product_category.category_name}}</a>-->
+                                <h2 class="mb-0"><a href="{% url 'product:product_category_details' product_category.id %}">{{product_category.category_name}}</a>
                                 </h2>
                             </div>
                         </div>
