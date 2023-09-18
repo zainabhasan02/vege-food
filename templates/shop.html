@@ -69,17 +69,17 @@
                     <a class="nav-link dropdown-toggle" href="#" id="dropdown04" data-toggle="dropdown"
                        aria-haspopup="true" aria-expanded="false">Shop</a>
                     <div class="dropdown-menu" aria-labelledby="dropdown04">
-                        <a class="dropdown-item" href="{% url 'shop' %}">Shop</a>
-                        <a class="dropdown-item" href="{% url 'wishlist' %}">Wishlist</a>
+                        <a class="dropdown-item" href="{% url 'cart:shop' %}">Shop</a>
+                        <a class="dropdown-item" href="{% url 'cart:wishlist' %}">Wishlist</a>
                         <a class="dropdown-item" href="{% url 'index' %}">Single Product</a>
-                        <a class="dropdown-item" href="{% url 'cart' %}">Cart</a>
-                        <a class="dropdown-item" href="{% url 'checkout' %}">Checkout</a>
+                        <a class="dropdown-item" href="{% url 'cart:cart' %}">Cart</a>
+                        <a class="dropdown-item" href="{% url 'cart:checkout' %}">Checkout</a>
                     </div>
                 </li>
                 <li class="nav-item"><a href="{% url 'users:about' %}" class="nav-link">About</a></li>
                 <li class="nav-item"><a href="{% url 'blog' %}" class="nav-link">Blog</a></li>
                 <li class="nav-item"><a href="{% url 'users:contact' %}" class="nav-link">Contact</a></li>
-                <li class="nav-item cta cta-colored"><a href="{% url 'cart' %}" class="nav-link"><span
+                <li class="nav-item cta cta-colored"><a href="{% url 'cart:cart' %}" class="nav-link"><span
                         class="icon-shopping_cart"></span>[0]</a></li>
 
             </ul>
@@ -105,10 +105,9 @@
         <div class="row justify-content-center">
             <div class="col-md-10 mb-5 text-center">
                 <ul class="product-category">
-                    <li><a href="#" class="active">All</a></li>
-                    {% for active_prod_category in active_product_category_list_k %}
-                    <!--<li><a href="{{active_prod_category.category_name}}">{{active_prod_category.category_name}}</a>-->
-                    <li><a href="{% url 'product:product_category_details' active_prod_category.id %}">{{active_prod_category.category_name}}</a>
+                    <li><a href="{% url 'cart:shop' %}" id="all-tab" class="active">All</a></li>
+                    {% for active_prod_category in active_categories_k %}
+                    <li><a href="{% url 'cart:shop_by_category' active_prod_category.category_name %}">{{active_prod_category.category_name}}</a>
                     </li>
                     {% endfor %}
                 </ul>
@@ -156,19 +155,27 @@
                     </div>
                 </div>
             </div>
+            {% empty %}
+            <div class="col-md-12 text-center">
+                <h4>No products available in this category</h4>
+            </div>
             {% endfor %}
         </div>
         <div class="row mt-5">
             <div class="col text-center">
                 <div class="block-27">
                     <ul>
-                        <li><a href="#">&lt;</a></li>
-                        <li class="active"><span>1</span></li>
-                        <li><a href="#">2</a></li>
-                        <li><a href="#">3</a></li>
-                        <li><a href="#">4</a></li>
-                        <li><a href="#">5</a></li>
-                        <li><a href="#">&gt;</a></li>
+                        {% if shop_paginated_product_k.has_previous %}
+                        <li><a href="?page={{ shop_paginated_product_k.previous_page_number }}">&lt;</a></li>
+                        {% endif %}
+                        {% for i in shop_paginated_product_k.paginator.page_range %}
+                        <li {% if i == shop_paginated_product_k.number %} class="active" {% endif %}>
+                            <a href="?page={{ i }}">{{ i }}</a>
+                        </li>
+                        {% endfor %}
+                        {% if shop_paginated_product_k.has_next %}
+                        <li><a href="?page={{ shop_paginated_product_k.next_page_number }}">&gt;</a></li>
+                        {% endif %}
                     </ul>
                 </div>
             </div>
@@ -219,7 +226,7 @@
                 <div class="ftco-footer-widget mb-4 ml-md-5">
                     <h2 class="ftco-heading-2">Menu</h2>
                     <ul class="list-unstyled">
-                        <li><a href="{% url 'shop' %}" class="py-2 d-block">Shop</a></li>
+                        <li><a href="{% url 'cart:shop' %}" class="py-2 d-block">Shop</a></li>
                         <li><a href="{% url 'users:about' %}" class="py-2 d-block">About</a></li>
                         <li><a href="#" class="py-2 d-block">Journal</a></li>
                         <li><a href="{% url 'users:contact' %}" class="py-2 d-block">Contact Us</a></li>
@@ -284,6 +291,7 @@
     </svg>
 </div>
 
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
 <script src="{% static 'js/jquery.min.js' %}"></script>
 <script src="{% static 'js/jquery-migrate-3.0.1.min.js' %}"></script>
