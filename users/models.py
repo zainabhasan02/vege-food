@@ -42,25 +42,25 @@ class ContactUs(models.Model):
         ordering = ['name']
 
 
-class Login(models.Model):
-    email = models.CharField(max_length=255)
-    password = models.CharField(max_length=255)
-
-    def __str__(self):
-        return self.email
-
-    class Meta:
-        ordering = ['email']
-
-
-class Signup(models.Model):
-    f_name = models.CharField(max_length=255)
-    email = models.CharField(max_length=255)
-    password = models.CharField(max_length=255)
-    confirm_password = models.CharField(max_length=255)
-
-    def __str__(self):
-        return self.f_name
-
-    class Meta:
-        ordering = ['f_name']
+# class Login(models.Model):
+#     email = models.CharField(max_length=255)
+#     password = models.CharField(max_length=255)
+#
+#     def __str__(self):
+#         return self.email
+#
+#     class Meta:
+#         ordering = ['email']
+#
+#
+# class Signup(models.Model):
+#     f_name = models.CharField(max_length=255)
+#     email = models.CharField(max_length=255)
+#     password = models.CharField(max_length=255)
+#     confirm_password = models.CharField(max_length=255)
+#
+#     def __str__(self):
+#         return self.f_name
+#
+#     class Meta:
+#         ordering = ['f_name']

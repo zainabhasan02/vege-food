@@ -82,6 +82,13 @@
                 <li class="nav-item cta cta-colored"><a href="{% url 'cart:cart' %}" class="nav-link"><span
                         class="icon-shopping_cart"></span>[0]</a></li>
 
+                {% if user.is_authenticated %}
+                <li class="nav-item"><a style="" class="nav-link">Hello, <b>{{user.first_name}}</b></a></li>
+                <li class="nav-item"><a href="{% url 'accounts:logout' %}" class="nav-link">Logout</a></li>
+                {% else %}
+                <li class="nav-item"><a href="{% url 'accounts:register' %}" class="nav-link">Register</a></li>
+                <li class="nav-item"><a href="{% url 'accounts:login' %}" class="nav-link">Login</a></li>
+                {% endif %}
             </ul>
         </div>
     </div>

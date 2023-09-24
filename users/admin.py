@@ -1,17 +1,9 @@
 from django.contrib import admin
 
-from users.models import Login, Signup, SatisfiedCustomer, SubscriberEmail, ContactUs
+from users.models import SatisfiedCustomer, SubscriberEmail, ContactUs
 
 
 # Register your models here.
-class LoginAdmin(admin.ModelAdmin):
-    list_display = "email"
-    search_fields = ("email",)
-
-
-class SignupAdmin(admin.ModelAdmin):
-    list_display = ("f_name", "email", "customer_order", "active_customer")
-    search_fields = ("f_name",)
 
 
 class SatisfiedCustomerAdmin(admin.ModelAdmin):

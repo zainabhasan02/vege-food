@@ -24,6 +24,7 @@ from VegieStore.views import IndexView
 urlpatterns = [
                   path('admin/', admin.site.urls),
                   url(r'^$', IndexView.as_view(), name='index'),
+                  path('accounts/', include('accounts.urls')),
                   path('blog/', include('blogs.urls')),
                   path('cart/', include('cart.urls')),
                   path('product/', include('product.urls')),

@@ -1,5 +1,6 @@
+from django.contrib import messages
 from django.http import HttpResponseRedirect
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.views import View
 
 from product.models import ProductCategory, Product, HomepageBanner, DealOfDay
@@ -42,7 +43,9 @@ class IndexView(View):
         print("existing_email..", existing_email)
         if existing_email:
             print("Email already exists")
-            HttpResponseRedirect(request.META.get('HTTP_REFERER', '/'))
+            messages.info(request, 'Email already exists')
+            # HttpResponseRedirect(request.META.get('HTTP_REFERER', '/'))
+
         else:
             SubscriberEmail.objects.create(email=subscriber_email)
             print("Created new email \nNew Subscriber Email Saved:", subscriber_email)
