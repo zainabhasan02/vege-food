@@ -26,10 +26,10 @@ class IndexView(View):
         print("satisfied_customer_data..", satisfied_customer_data)
 
         # Retrieve the product instance from the database based on the product_id
-        product_id = Product.objects.filter().first()
+        product_id = Product.objects.filter(active=True).first()
         # You can access its ID like this:
         product_ids = Product.id
-        print("product_ids..", product_ids)
+        print("product_id..", product_id)
 
         context = {'homepage_banner_data_k': homepage_banner_data, 'product_category_k': product_category,
                    'product_list_data_k': product_list_data, 'deal_of_day_data_k': deal_of_day_data,

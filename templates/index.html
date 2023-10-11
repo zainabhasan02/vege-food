@@ -73,14 +73,14 @@
                         <a class="dropdown-item" href="{% url 'cart:shop' %}">Shop</a>
                         <a class="dropdown-item" href="{% url 'cart:wishlist' %}">Wishlist</a>
                         <a class="dropdown-item" href="{% url 'index' %}">Single Product</a>
-                        <a class="dropdown-item" href="{% url 'cart:cart' %}">Cart</a>
+                        <a class="dropdown-item" href="{% url 'cart:view_cart' %}">Cart</a>
                         <a class="dropdown-item" href="{% url 'cart:checkout' %}">Checkout</a>
                     </div>
                 </li>
                 <li class="nav-item"><a href="{% url 'users:about' %}" class="nav-link">About</a></li>
                 <li class="nav-item"><a href="{% url 'blog' %}" class="nav-link">Blog</a></li>
                 <li class="nav-item"><a href="{% url 'users:contact' %}" class="nav-link">Contact</a></li>
-                <li class="nav-item cta cta-colored"><a href="{% url 'cart:cart' %}" class="nav-link"><span
+                <li class="nav-item cta cta-colored"><a href="{% url 'cart:view_cart' %}" class="nav-link"><span
                         class="icon-shopping_cart"></span>[0]</a></li>
 
                 {% if user.is_authenticated %}
@@ -110,8 +110,7 @@
                         {% endif %}
                         <!--<h2 class="subheading mb-4">We deliver organic vegetables &amp; fruits</h2>-->
                         {% if homepage_banner.button_text %}
-                        <p><a href="{{ homepage_banner.banner_url|default:'#' }}" class="btn btn-primary">{{
-                            homepage_banner.button_text }}</a></p>
+                        <p><a href="{{ homepage_banner.banner_url|default:'#' }}" class="btn btn-primary">{{ homepage_banner.button_text }}</a></p>
                         {% endif %}
                     </div>
                 </div>
@@ -273,7 +272,7 @@
                                    class="add-to-cart d-flex justify-content-center align-items-center text-center">
                                     <span><i class="ion-ios-menu"></i></span>
                                 </a>
-                                <a href="#" class="buy-now d-flex justify-content-center align-items-center mx-1">
+                                <a href="{% url 'cart:add_to_cart' product.id %}" class="buy-now d-flex justify-content-center align-items-center mx-1">
                                     <span><i class="ion-ios-cart"></i></span>
                                 </a>
 
