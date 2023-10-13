@@ -7,7 +7,7 @@ from django.contrib.auth.decorators import login_required
 
 from product.models import Product, ProductCategory
 
-from cart.models import Cart
+from cart.models import Cart, WishlistItem
 
 
 # Create your views here.
@@ -52,10 +52,45 @@ class CartView(View):
             return redirect('accounts:login')  # Redirect to the login page
 
 
-def delete_item(request, item_id):
+def delete_cart_item(request, item_id):
     cart_item = get_object_or_404(Cart, id=item_id)
     cart_item.delete()
     return redirect('cart:view_cart')
+
+
+class AddToWishlistView(View):
+    def get(self, request, product_id):
+        if request.user.is_authenticated:
+            product = Product.objects.get(id=product_id)
+            # Add product to wishlist logic goes here
+            wishlist_item = WishlistItem.objects.create(user=request.user, product=product)
+            wishlist_item.save()
+
+            print("product id for wishlist is ", product)
+            print("wishlist_item", wishlist_item)
+
+            return redirect('cart:view_wishlist')
+        else:
+            # Handle the case where the user is not authenticated
+            return redirect('accounts:login')  # Redirect to the login page
+
+
+class WishlistView(View):
+    def get(self, request):
+        if request.user.is_authenticated:
+            user_wishlist_items = WishlistItem.objects.filter(user=request.user)
+            print("user_wishlist_items", user_wishlist_items)
+            return render(request, 'wishlist.html', {'user_wishlist_items_k': user_wishlist_items})
+        else:
+            # Handle the case where the user is not authenticated
+            return redirect('accounts:login')  # Redirect to the login page
+
+
+def delete_wishlist_item(request, item_id):
+    cart_item = get_object_or_404(WishlistItem, id=item_id)
+    cart_item.delete()
+    return redirect('cart:view_wishlist')
+
 
 class CheckoutView(View):
     def get(self, request):
@@ -103,8 +138,3 @@ class ShopView(View):
         }
 
         return render(request, 'shop.html', context)
-
-
-class WishlistView(View):
-    def get(self, request):
-        return render(request, 'wishlist.html')

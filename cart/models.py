@@ -17,5 +17,15 @@ class Cart(models.Model):
     class Meta:
         ordering = ["user"]
 
-    def calculate_total_price(self):
-        total_price = self.product.price
+
+class WishlistItem(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    product = models.ForeignKey(Product, on_delete=models.CASCADE)  # Assuming you have a Product model
+    added_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f'Wishlist for {self.user.username} - Product: {self.product}'
+
+    class Meta:
+        ordering = ["user"]
+
