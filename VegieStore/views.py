@@ -7,6 +7,8 @@ from product.models import ProductCategory, Product, HomepageBanner, DealOfDay
 
 from users.models import SatisfiedCustomer, SubscriberEmail
 
+from cart.models import Cart
+
 
 class IndexView(View):
     def get(self, request):
@@ -31,9 +33,12 @@ class IndexView(View):
         product_ids = Product.id
         print("product_id..", product_id)
 
+        cart_items_count = Cart.objects.filter(user=request.user).count()
+        print("cart_items_count", cart_items_count)
+
         context = {'homepage_banner_data_k': homepage_banner_data, 'product_category_k': product_category,
                    'product_list_data_k': product_list_data, 'deal_of_day_data_k': deal_of_day_data,
-                   'satisfied_customer_data_k': satisfied_customer_data,
+                   'satisfied_customer_data_k': satisfied_customer_data, 'cart_items_count_k': cart_items_count
                    }
         return render(request, 'index.html', context)
 

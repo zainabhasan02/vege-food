@@ -80,7 +80,7 @@
                 <li class="nav-item"><a href="{% url 'blog' %}" class="nav-link">Blog</a></li>
                 <li class="nav-item"><a href="{% url 'users:contact' %}" class="nav-link">Contact</a></li>
                 <li class="nav-item cta cta-colored"><a href="{% url 'cart:view_cart' %}" class="nav-link"><span
-                        class="icon-shopping_cart"></span>[0]</a></li>
+                        class="icon-shopping_cart"></span>[{{cart_items_count_k}}]</a></li>
 
                 {% if user.is_authenticated %}
                 <li class="nav-item"><a style="" class="nav-link">Hello, <b>{{user.first_name}}</b></a></li>
@@ -113,6 +113,7 @@
         <div class="row">
             <div class="col-md-12 ftco-animate">
                 <div class="cart-list">
+                    {% if user_cart_items_k %}
                     <table class="table">
                         <thead class="thead-primary">
                         <tr class="text-center">
@@ -154,9 +155,11 @@
                             <td class="total">${{cart_items.product.price}}</td>
                         </tr><!-- END TR-->
                         {% endfor %}
-
                         </tbody>
                     </table>
+                    {% else %}
+                    <h3 style="text-align: center;">Your Cart is empty</h3>
+                    {% endif %}
                 </div>
             </div>
         </div>
@@ -383,6 +386,8 @@
 		    });
 
 		});
+
+
 
 
 

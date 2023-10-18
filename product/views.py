@@ -2,6 +2,7 @@ from django.shortcuts import render
 from django.views import View
 
 from .models import Product, ProductCategory
+from cart.models import Cart
 
 
 # Create your views here.
@@ -37,9 +38,13 @@ class SingleProductView(View):
             id=single_product_id)
         print("related_products..", related_products)
 
+        user_cart_items = Cart.objects.filter(user=request.user)
+        cart_items_count = user_cart_items.count()  # Count the number of cart items
+
         context = {
             'single_product_data_k': single_product_ID,
             'related_products_k': related_products,
+            'cart_items_count_k': cart_items_count,
         }
 
         return render(request, 'single-product.html', context)

@@ -4,6 +4,8 @@ from django.views import View
 
 from users.models import SatisfiedCustomer, SubscriberEmail, ContactUs
 
+from cart.models import Cart
+
 
 # Create your views here.
 
@@ -13,7 +15,11 @@ class AboutUsView(View):
         satisfied_customer_data = SatisfiedCustomer.objects.filter(active_customer=True).order_by('customer_order')
         print("satisfied_customer_data--About..", satisfied_customer_data)
 
-        return render(request, 'about.html', {'satisfied_customer_data_k': satisfied_customer_data})
+        user_cart_items = Cart.objects.filter(user=request.user)
+        cart_items_count = user_cart_items.count()  # Count the number of cart items
+
+        return render(request, 'about.html',
+                      {'satisfied_customer_data_k': satisfied_customer_data, 'cart_items_count_k': cart_items_count})
 
     def post(self, request):
         subscriber_email = request.POST.get('subscriber_email')
@@ -31,7 +37,10 @@ class AboutUsView(View):
 
 class ContactUsView(View):
     def get(self, request):
-        return render(request, 'contact.html')
+        user_cart_items = Cart.objects.filter(user=request.user)
+        cart_items_count = user_cart_items.count()  # Count the number of cart items
+
+        return render(request, 'contact.html', {'cart_items_count_k': cart_items_count})
 
     def post(self, request):
         name = request.POST.get('names')

@@ -70,17 +70,17 @@
                        aria-haspopup="true" aria-expanded="false">Shop</a>
                     <div class="dropdown-menu" aria-labelledby="dropdown04">
                         <a class="dropdown-item" href="{% url 'cart:shop' %}">Shop</a>
-                        <a class="dropdown-item" href="{% url 'cart:wishlist' %}">Wishlist</a>
+                        <a class="dropdown-item" href="{% url 'cart:view_wishlist' %}">Wishlist</a>
                         <a class="dropdown-item" href="{% url 'index' %}">Single Product</a>
-                        <a class="dropdown-item" href="{% url 'cart:cart' %}">Cart</a>
+                        <a class="dropdown-item" href="{% url 'cart:view_cart' %}">Cart</a>
                         <a class="dropdown-item" href="{% url 'cart:checkout' %}">Checkout</a>
                     </div>
                 </li>
                 <li class="nav-item"><a href="{% url 'users:about' %}" class="nav-link">About</a></li>
                 <li class="nav-item active"><a href="{% url 'blog' %}" class="nav-link">Blog</a></li>
                 <li class="nav-item"><a href="{% url 'users:contact' %}" class="nav-link">Contact</a></li>
-                <li class="nav-item cta cta-colored"><a href="{% url 'cart:cart' %}" class="nav-link"><span
-                        class="icon-shopping_cart"></span>[0]</a></li>
+                <li class="nav-item cta cta-colored"><a href="{% url 'cart:view_cart' %}" class="nav-link"><span
+                        class="icon-shopping_cart"></span>[{{cart_items_count_k}}]</a></li>
 
                 {% if user.is_authenticated %}
                 <li class="nav-item"><a style="" class="nav-link">Hello, <b>{{user.first_name}}</b></a></li>
@@ -110,124 +110,29 @@
 <section class="ftco-section ftco-degree-bg">
     <div class="container">
         <div class="row">
+            {% for blog in blog_list_k %}
             <div class="col-lg-8 ftco-animate">
                 <div class="row">
                     <div class="col-md-12 d-flex ftco-animate">
                         <div class="blog-entry align-self-stretch d-md-flex">
                             <a href="{% url 'single_blog' %}" class="block-20"
-                               style="background-image: url({% static 'images/image_1.jpg' %});">
+                               style="background-image: url('{{ blog.blog_img.url }}')">
                             </a>
                             <div class="text d-block pl-md-4">
                                 <div class="meta mb-3">
-                                    <div><a href="#">July 20, 2019</a></div>
+                                    <div><a href="#">{{ blog.created_date }}</a></div>
                                     <div><a href="#">Admin</a></div>
                                     <div><a href="#" class="meta-chat"><span class="icon-chat"></span> 3</a></div>
                                 </div>
-                                <h3 class="heading"><a href="#">Even the all-powerful Pointing has no control about the
-                                    blind texts</a></h3>
-                                <p>Far far away, behind the word mountains, far from the countries Vokalia and
-                                    Consonantia, there live the blind texts.</p>
-                                <p><a href="{% url 'single_blog' %}" class="btn btn-primary py-2 px-3">Read more</a></p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-12 d-flex ftco-animate">
-                        <div class="blog-entry align-self-stretch d-md-flex">
-                            <a href="{% url 'single_blog' %}" class="block-20"
-                               style="background-image: url({% static 'images/image_2.jpg' %});">
-                            </a>
-                            <div class="text d-block pl-md-4">
-                                <div class="meta mb-3">
-                                    <div><a href="#">July 20, 2019</a></div>
-                                    <div><a href="#">Admin</a></div>
-                                    <div><a href="#" class="meta-chat"><span class="icon-chat"></span> 3</a></div>
-                                </div>
-                                <h3 class="heading"><a href="#">Even the all-powerful Pointing has no control about the
-                                    blind texts</a></h3>
-                                <p>Far far away, behind the word mountains, far from the countries Vokalia and
-                                    Consonantia, there live the blind texts.</p>
-                                <p><a href="{% url 'single_blog' %}" class="btn btn-primary py-2 px-3">Read more</a></p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-12 d-flex ftco-animate">
-                        <div class="blog-entry align-self-stretch d-md-flex">
-                            <a href="{% url 'single_blog' %}" class="block-20"
-                               style="background-image: url({% static 'images/image_3.jpg' %});">
-                            </a>
-                            <div class="text d-block pl-md-4">
-                                <div class="meta mb-3">
-                                    <div><a href="#">July 20, 2019</a></div>
-                                    <div><a href="#">Admin</a></div>
-                                    <div><a href="#" class="meta-chat"><span class="icon-chat"></span> 3</a></div>
-                                </div>
-                                <h3 class="heading"><a href="#">Even the all-powerful Pointing has no control about the
-                                    blind texts</a></h3>
-                                <p>Far far away, behind the word mountains, far from the countries Vokalia and
-                                    Consonantia, there live the blind texts.</p>
-                                <p><a href="{% url 'single_blog' %}" class="btn btn-primary py-2 px-3">Read more</a></p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-12 d-flex ftco-animate">
-                        <div class="blog-entry align-self-stretch d-md-flex">
-                            <a href="{% url 'single_blog' %}" class="block-20"
-                               style="background-image: url({% static 'images/image_4.jpg' %});">
-                            </a>
-                            <div class="text d-block pl-md-4">
-                                <div class="meta mb-3">
-                                    <div><a href="#">July 20, 2019</a></div>
-                                    <div><a href="#">Admin</a></div>
-                                    <div><a href="#" class="meta-chat"><span class="icon-chat"></span> 3</a></div>
-                                </div>
-                                <h3 class="heading"><a href="#">Even the all-powerful Pointing has no control about the
-                                    blind texts</a></h3>
-                                <p>Far far away, behind the word mountains, far from the countries Vokalia and
-                                    Consonantia, there live the blind texts.</p>
-                                <p><a href="{% url 'single_blog' %}" class="btn btn-primary py-2 px-3">Read more</a></p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-12 d-flex ftco-animate">
-                        <div class="blog-entry align-self-stretch d-md-flex">
-                            <a href="{% url 'single_blog' %}" class="block-20"
-                               style="background-image: url({% static 'images/image_5.jpg' %});">
-                            </a>
-                            <div class="text d-block pl-md-4">
-                                <div class="meta mb-3">
-                                    <div><a href="#">July 20, 2019</a></div>
-                                    <div><a href="#">Admin</a></div>
-                                    <div><a href="#" class="meta-chat"><span class="icon-chat"></span> 3</a></div>
-                                </div>
-                                <h3 class="heading"><a href="#">Even the all-powerful Pointing has no control about the
-                                    blind texts</a></h3>
-                                <p>Far far away, behind the word mountains, far from the countries Vokalia and
-                                    Consonantia, there live the blind texts.</p>
-                                <p><a href="{% url 'single_blog' %}" class="btn btn-primary py-2 px-3">Read more</a></p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-12 d-flex ftco-animate">
-                        <div class="blog-entry align-self-stretch d-md-flex">
-                            <a href="{% url 'single_blog' %}" class="block-20"
-                               style="background-image: url({% static 'images/image_6.jpg' %});">
-                            </a>
-                            <div class="text d-block pl-md-4">
-                                <div class="meta mb-3">
-                                    <div><a href="#">July 20, 2019</a></div>
-                                    <div><a href="#">Admin</a></div>
-                                    <div><a href="#" class="meta-chat"><span class="icon-chat"></span> 3</a></div>
-                                </div>
-                                <h3 class="heading"><a href="#">Even the all-powerful Pointing has no control about the
-                                    blind texts</a></h3>
-                                <p>Far far away, behind the word mountains, far from the countries Vokalia and
-                                    Consonantia, there live the blind texts.</p>
+                                <h3 class="heading"><a href="#">{{ blog.title }}</a></h3>
+                                <p>{{ blog.content }}</p>
                                 <p><a href="{% url 'single_blog' %}" class="btn btn-primary py-2 px-3">Read more</a></p>
                             </div>
                         </div>
                     </div>
                 </div>
             </div> <!-- .col-md-8 -->
+            {% endfor %}
             <div class="col-lg-4 sidebar ftco-animate">
                 <div class="sidebar-box">
                     <form action="#" class="search-form">

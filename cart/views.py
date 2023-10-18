@@ -45,8 +45,15 @@ class CartView(View):
     def get(self, request):
         if request.user.is_authenticated:
             user_cart_items = Cart.objects.filter(user=request.user)
+            cart_items_count = user_cart_items.count()  # Count the number of cart items
             print("user_cart_item", user_cart_items)
-            return render(request, 'cart.html', {'user_cart_items_k': user_cart_items})
+            print("cart_items_count", cart_items_count)
+
+            context = {
+                'cart_items_count_k': cart_items_count,
+                'user_cart_items_k': user_cart_items
+            }
+            return render(request, 'cart.html', context)
         else:
             # Handle the case where the user is not authenticated
             return redirect('accounts:login')  # Redirect to the login page
@@ -80,7 +87,11 @@ class WishlistView(View):
         if request.user.is_authenticated:
             user_wishlist_items = WishlistItem.objects.filter(user=request.user)
             print("user_wishlist_items", user_wishlist_items)
-            return render(request, 'wishlist.html', {'user_wishlist_items_k': user_wishlist_items})
+            user_cart_items = Cart.objects.filter(user=request.user)
+            cart_items_count = user_cart_items.count()  # Count the number of cart items
+
+            return render(request, 'wishlist.html', {'user_wishlist_items_k': user_wishlist_items,
+                                                     'cart_items_count_k': cart_items_count})
         else:
             # Handle the case where the user is not authenticated
             return redirect('accounts:login')  # Redirect to the login page
@@ -94,7 +105,10 @@ def delete_wishlist_item(request, item_id):
 
 class CheckoutView(View):
     def get(self, request):
-        return render(request, 'checkout.html')
+        user_cart_items = Cart.objects.filter(user=request.user)
+        cart_items_count = user_cart_items.count()  # Count the number of cart items
+
+        return render(request, 'checkout.html', {'cart_items_count_k': cart_items_count})
 
 
 class ShopView(View):
@@ -130,11 +144,16 @@ class ShopView(View):
 
         print("shop_paginated_product..", shop_paginated_product)
 
+        user_cart_items = Cart.objects.filter(user=request.user)
+        cart_items_count = user_cart_items.count()  # Count the number of cart items
+        print('cart_items_count', cart_items_count)
+
         context = {
             'selected_category_k': category,
             'shop_product_list_k': shop_product_list,
             'active_categories_k': active_categories,
             'shop_paginated_product_k': shop_paginated_product,
+            'cart_items_count_k': cart_items_count
         }
 
         return render(request, 'shop.html', context)
