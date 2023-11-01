@@ -121,7 +121,7 @@
                             <div class="text d-block pl-md-4">
                                 <div class="meta mb-3">
                                     <div><a href="#">{{ blog.created_date }}</a></div>
-                                    <div><a href="#">Admin</a></div>
+                                    <div><a href="#">{{ blog.author }}</a></div>
                                     <div><a href="#" class="meta-chat"><span class="icon-chat"></span> 3</a></div>
                                 </div>
                                 <h3 class="heading"><a href="#">{{ blog.title }}</a></h3>
@@ -145,10 +145,9 @@
                 <div class="sidebar-box ftco-animate">
                     <h3 class="heading">Categories</h3>
                     <ul class="categories">
-                        <li><a href="#">Vegetables <span>(12)</span></a></li>
-                        <li><a href="#">Fruits <span>(22)</span></a></li>
-                        <li><a href="#">Juice <span>(37)</span></a></li>
-                        <li><a href="#">Dries <span>(42)</span></a></li>
+                        {% for category in categories_with_counts %}
+                        <li><a href="#">{{ category.category.category_name }} <span>({{ category.product_count }})</span></a></li>
+                        {% endfor %}
                     </ul>
                 </div>
 

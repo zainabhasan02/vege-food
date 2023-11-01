@@ -15,6 +15,9 @@ class IndexView(View):
         product_category = ProductCategory.objects.filter(add_to_homepage=True).order_by('order')
         print("product_category..", product_category)
 
+        active_product_category = ProductCategory.objects.filter(active=True).order_by('order')
+        print("active_product_category..", active_product_category)
+
         product_list_data = Product.objects.filter(add_to_home=True).order_by('product_order')
         print("product_list_data..Index", product_list_data)
 
@@ -28,7 +31,7 @@ class IndexView(View):
         print("satisfied_customer_data..", satisfied_customer_data)
 
         # Retrieve the product instance from the database based on the product_id
-        product_id = Product.objects.filter(active=True).first()
+        product_id = Product.objects.filter(active=True)
         # You can access its ID like this:
         product_ids = Product.id
         print("product_id..", product_id)
@@ -38,7 +41,8 @@ class IndexView(View):
 
         context = {'homepage_banner_data_k': homepage_banner_data, 'product_category_k': product_category,
                    'product_list_data_k': product_list_data, 'deal_of_day_data_k': deal_of_day_data,
-                   'satisfied_customer_data_k': satisfied_customer_data, 'cart_items_count_k': cart_items_count
+                   'satisfied_customer_data_k': satisfied_customer_data, 'cart_items_count_k': cart_items_count,
+                   'active_product_category_k': active_product_category
                    }
         return render(request, 'index.html', context)
 
