@@ -20,7 +20,7 @@ urlpatterns = [
     path('view_wishlist/', WishlistView.as_view(), name='view_wishlist'),
     path('delete_wishlist_item/<int:item_id>/', views.delete_wishlist_item, name='delete_wishlist_item'),
 
-    url(r'^checkout/$', CheckoutView.as_view(), name='checkout'),
+    # url(r'^checkout/$', CheckoutView.as_view(), name='checkout'),
     url(r'^shop/$', ShopView.as_view(), name='shop'),
     path('shop/<str:category>/', ShopView.as_view(), name='shop_by_category'),
     # url(r'^wishlist/$', WishlistView.as_view(), name='wishlist'),

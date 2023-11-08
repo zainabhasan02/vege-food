@@ -73,7 +73,7 @@
                         <a class="dropdown-item" href="{% url 'cart:view_wishlist' %}">Wishlist</a>
                         <a class="dropdown-item" href="{% url 'index' %}">Single Product</a>
                         <a class="dropdown-item" href="{% url 'cart:view_cart' %}">Cart</a>
-                        <a class="dropdown-item" href="{% url 'cart:checkout' %}">Checkout</a>
+                        <a class="dropdown-item" href="{% url 'users:checkout' %}">Checkout</a>
                     </div>
                 </li>
                 <li class="nav-item"><a href="{% url 'users:about' %}" class="nav-link">About</a></li>
@@ -111,19 +111,20 @@
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-xl-7 ftco-animate">
-                <form action="#" class="billing-form">
+                <form method="post" action="" class="billing-form">
+                    {% csrf_token %}
                     <h3 class="mb-4 billing-heading">Billing Details</h3>
                     <div class="row align-items-end">
                         <div class="col-md-6">
                             <div class="form-group">
-                                <label for="firstname">Firt Name</label>
-                                <input type="text" class="form-control" placeholder="">
+                                <label for="firstname">First Name</label>
+                                <input id="firstname" name="firstname" type="text" class="form-control" placeholder="">
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label for="lastname">Last Name</label>
-                                <input type="text" class="form-control" placeholder="">
+                                <input id="lastname" name="lastname" type="text" class="form-control" placeholder="">
                             </div>
                         </div>
                         <div class="w-100"></div>
@@ -132,7 +133,7 @@
                                 <label for="country">State / Country</label>
                                 <div class="select-wrap">
                                     <div class="icon"><span class="ion-ios-arrow-down"></span></div>
-                                    <select name="" id="" class="form-control">
+                                    <select name="country" id="country" class="form-control">
                                         <option value="">France</option>
                                         <option value="">Italy</option>
                                         <option value="">Philippines</option>
@@ -147,39 +148,40 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label for="streetaddress">Street Address</label>
-                                <input type="text" class="form-control" placeholder="House number and street name">
+                                <input id="street1" name="street1" type="text" class="form-control"
+                                       placeholder="House number and street name">
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
-                                <input type="text" class="form-control"
-                                       placeholder="Appartment, suite, unit etc: (optional)">
+                                <input id="street2" name="street2" type="text" class="form-control"
+                                       placeholder="Apartment, suite, unit etc: (optional)">
                             </div>
                         </div>
                         <div class="w-100"></div>
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label for="towncity">Town / City</label>
-                                <input type="text" class="form-control" placeholder="">
+                                <input id="town" name="town" type="text" class="form-control" placeholder="">
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label for="postcodezip">Postcode / ZIP *</label>
-                                <input type="text" class="form-control" placeholder="">
+                                <input id="zip" name="zip" type="number" class="form-control" placeholder="">
                             </div>
                         </div>
                         <div class="w-100"></div>
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label for="phone">Phone</label>
-                                <input type="text" class="form-control" placeholder="">
+                                <input id="phn_num" name="phn_num" type="number" class="form-control" placeholder="">
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label for="emailaddress">Email Address</label>
-                                <input type="text" class="form-control" placeholder="">
+                                <input id="email" name="email" type="email" class="form-control" placeholder="">
                             </div>
                         </div>
                         <div class="w-100"></div>
@@ -251,7 +253,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <p><a href="#" class="btn btn-primary py-3 px-4">Place an order</a></p>
+                            <p><a href="{% url 'users:checkout' %}" class="btn btn-primary py-3 px-4">Place an order</a></p>
                         </div>
                     </div>
                 </div>
@@ -421,6 +423,9 @@
 		    });
 
 		});
+
+
+
 
 </script>
 
