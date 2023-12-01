@@ -73,7 +73,7 @@
                         <a class="dropdown-item" href="{% url 'cart:view_wishlist' %}">Wishlist</a>
                         <a class="dropdown-item" href="{% url 'index' %}">Single Product</a>
                         <a class="dropdown-item" href="{% url 'cart:view_cart' %}">Cart</a>
-                        <a class="dropdown-item" href="{% url 'users:checkout' %}">Checkout</a>
+                        <a class="dropdown-item" href="{% url 'users:billing_address' %}">Checkout</a>
                     </div>
                 </li>
                 <li class="nav-item"><a href="{% url 'users:about' %}" class="nav-link">About</a></li>
@@ -111,45 +111,35 @@
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-xl-7 ftco-animate">
-                <form method="post" action="" class="billing-form">
+                <form id="myForm" method="post" action="{% url 'users:billing_address' %}" class="billing-form">
                     {% csrf_token %}
                     <h3 class="mb-4 billing-heading">Billing Details</h3>
                     <div class="row align-items-end">
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label for="firstname">First Name</label>
-                                <input id="firstname" name="firstname" type="text" class="form-control" placeholder="">
+                                <input id="firstname" name="firstname" type="text" class="form-control" required>
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label for="lastname">Last Name</label>
-                                <input id="lastname" name="lastname" type="text" class="form-control" placeholder="">
+                                <input id="lastname" name="lastname" type="text" class="form-control" required>
                             </div>
                         </div>
                         <div class="w-100"></div>
                         <div class="col-md-12">
                             <div class="form-group">
-                                <label for="country">State / Country</label>
-                                <div class="select-wrap">
-                                    <div class="icon"><span class="ion-ios-arrow-down"></span></div>
-                                    <select name="country" id="country" class="form-control">
-                                        <option value="">France</option>
-                                        <option value="">Italy</option>
-                                        <option value="">Philippines</option>
-                                        <option value="">South Korea</option>
-                                        <option value="">Hongkong</option>
-                                        <option value="">Japan</option>
-                                    </select>
-                                </div>
+                                <label for="state">State / Country</label>
+                                <input id="state" name="state" type="text" class="form-control" required>
                             </div>
                         </div>
                         <div class="w-100"></div>
                         <div class="col-md-6">
                             <div class="form-group">
-                                <label for="streetaddress">Street Address</label>
+                                <label for="street1">Street Address</label>
                                 <input id="street1" name="street1" type="text" class="form-control"
-                                       placeholder="House number and street name">
+                                       placeholder="House number and street name" required>
                             </div>
                         </div>
                         <div class="col-md-6">
@@ -161,27 +151,27 @@
                         <div class="w-100"></div>
                         <div class="col-md-6">
                             <div class="form-group">
-                                <label for="towncity">Town / City</label>
-                                <input id="town" name="town" type="text" class="form-control" placeholder="">
+                                <label for="town">Town / City</label>
+                                <input id="town" name="town" type="text" class="form-control" required>
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
-                                <label for="postcodezip">Postcode / ZIP *</label>
-                                <input id="zip" name="zip" type="number" class="form-control" placeholder="">
+                                <label for="zip">Postcode / ZIP *</label>
+                                <input id="zip" name="zip" type="number" class="form-control" required>
                             </div>
                         </div>
                         <div class="w-100"></div>
                         <div class="col-md-6">
                             <div class="form-group">
-                                <label for="phone">Phone</label>
-                                <input id="phn_num" name="phn_num" type="number" class="form-control" placeholder="">
+                                <label for="phn_num">Phone</label>
+                                <input id="phn_num" name="phn_num" type="number" class="form-control" required>
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
-                                <label for="emailaddress">Email Address</label>
-                                <input id="email" name="email" type="email" class="form-control" placeholder="">
+                                <label for="email">Email Address</label>
+                                <input id="email" name="email" class="form-control" required>
                             </div>
                         </div>
                         <div class="w-100"></div>
@@ -221,7 +211,7 @@
                         </div>
                     </div>
                     <div class="col-md-12">
-                        <div class="cart-detail p-3 p-md-4">
+                        <!--<div class="cart-detail p-3 p-md-4">
                             <h3 class="billing-heading mb-4">Payment Method</h3>
                             <div class="form-group">
                                 <div class="col-md-12">
@@ -253,8 +243,8 @@
                                     </div>
                                 </div>
                             </div>
-                            <p><a href="{% url 'users:checkout' %}" class="btn btn-primary py-3 px-4">Place an order</a></p>
-                        </div>
+                        </div>-->
+                        <button type="submit" id="place_order" class="btn btn-primary py-3 px-4">Place an order</button>
                     </div>
                 </div>
             </div> <!-- .col-md-8 -->
@@ -426,6 +416,74 @@
 
 
 
+
+
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/validator@13.6.0"></script>
+<script>
+    document.getElementById('place_order').addEventListener('click', function() {
+        // Perform custom validation for each field before submitting the form
+        if (customValidation()) {
+            // If validation passes, trigger form submission
+            document.getElementById('myForm').submit();
+        } else {
+            // Handle validation failure (display error message, prevent submission, etc.)
+            alert('Custom validation failed. Please check your input.');
+        }
+    });
+
+    function customValidation() {
+        // Get input values
+        var firstName = document.getElementById('firstname').value;
+        var lastName = document.getElementById('lastname').value;
+        var state = document.getElementById('state').value;
+        var street1 = document.getElementById('street1').value;
+        var street2 = document.getElementById('street2').value;
+        var town = document.getElementById('town').value;
+        var zip = document.getElementById('zip').value;
+        var phn = document.getElementById('phn_num').value;
+        var email = document.getElementById('email').value;
+        console.log('First Name:', firstName);
+        console.log('Last Name:', lastName);
+        console.log('State:', state);
+        console.log('street1:', street1);
+        console.log('street2:', street2);
+        console.log('town:', town);
+        console.log('zip:', zip);
+        console.log('phn:', phn);
+        console.log('email:', email);
+
+        // Add other fields as needed
+
+        // Check if fields are not empty
+        if (firstName.trim() === '' || lastName.trim() === '' || state.trim() === '' ||
+            street1.trim() === '' || street2.trim() === '' || town.trim() === '' ||
+            zip.trim() === '' || phn.trim() === '' || email.trim() === '') {
+                 console.log('Validation failed: Empty field detected');
+                 alert('Please fill in all required fields.');
+                 return false;
+        } else if (isNaN(zip) || zip.length !== 6) {
+            alert('Please enter a valid 6-digit postal code.');
+            return false;
+        } else if (isNaN(phn) || phn.length !== 10) {
+            alert('Please enter a valid phone number with 10 digits.');
+            return false;
+        } console.log('Validation started');
+        else if (!validator.isEmail(email)) {
+            console.log('Invalid email detected');
+            alert('Please enter a valid email address.');
+            return false;
+        }
+        console.log('Validation passed');
+
+        else {
+            // Add more validation rules as needed for each field
+
+            // If all validation passes
+            return true;
+        }
+    }
 
 </script>
 

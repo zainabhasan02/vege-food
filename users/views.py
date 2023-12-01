@@ -1,3 +1,4 @@
+from django.contrib import messages
 from django.http import HttpResponseRedirect
 from django.shortcuts import render
 from django.views import View
@@ -25,14 +26,13 @@ class AboutUsView(View):
         subscriber_email = request.POST.get('subscriber_email')
         existing_email = SubscriberEmail.objects.filter(email=subscriber_email)
         print("existing_email..", existing_email)
-        if existing_email:
+        if existing_email.exists():
             print("Email already exists")
-            HttpResponseRedirect(request.META.get('HTTP_REFERER', '/'))
+            messages.info(request, 'Email already taken')
         else:
             SubscriberEmail.objects.create(email=subscriber_email)
             print("Created new email \nNew Subscriber Email Saved:", subscriber_email)
-
-        return HttpResponseRedirect(request.META.get('HTTP_REFERER', '/'))
+            return HttpResponseRedirect(request.META.get('HTTP_REFERER', '/'))
 
 
 class ContactUsView(View):
@@ -64,6 +64,7 @@ class CheckoutView(View):
     def post(self, request):
         f_name = request.POST.get('firstname')
         l_name = request.POST.get('lastname')
+        state = request.POST.get('state')
         street1 = request.POST.get('street1')
         street2 = request.POST.get('street2')
         city = request.POST.get('town')
@@ -71,9 +72,15 @@ class CheckoutView(View):
         phone = request.POST.get('phn_num')
         email = request.POST.get('email')
 
-        billing_address = BillingAddress.objects.create(first_name=f_name, last_name=l_name, street1=street1,
-                                                        street2=street2,
-                                                        city=city, post_code=postal, phone=phone, email=email)
+        # Check if the postal code is not empty before converting to an integer
+        # post_code = int(postal) if postal.strip() else None
+
+        print("phone............phone........", phone)
+        billing_address = BillingAddress.objects.create(first_name=f_name, last_name=l_name, state=state,
+                                                        street1=street1, street2=street2, city=city,
+                                                        post_code=postal, phone=phone, email=email)
+        print(f_name, l_name, state, street1, street2, city, postal, phone, email)
+        messages.info(request, 'Placed an order, successfully! ')
         print("billing_address, ", billing_address)
 
         return HttpResponseRedirect(request.META.get('HTTP_REFERER', '/'))

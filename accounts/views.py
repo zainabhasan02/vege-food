@@ -27,7 +27,7 @@ class Register(View):
         print("confirm_password..", confirm_password)
 
         if password == confirm_password:
-            # Check if a user with the same username already exists
+            # Check if a user with the same username & email already exists
             if User.objects.filter(username=username).exists():
                 print(username, "Already exists user")
                 messages.info(request, 'This username is already in use. Please choose another.')

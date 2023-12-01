@@ -12,6 +12,8 @@ from cart.models import Cart
 
 class IndexView(View):
     def get(self, request):
+        # Initialize cart_items_count with a default value
+        cart_items_count = 0
         product_category = ProductCategory.objects.filter(add_to_homepage=True).order_by('order')
         print("product_category..", product_category)
 
@@ -36,8 +38,9 @@ class IndexView(View):
         product_ids = Product.id
         print("product_id..", product_id)
 
-        cart_items_count = Cart.objects.filter(user=request.user).count()
-        print("cart_items_count", cart_items_count)
+        if request.user.is_authenticated:
+            cart_items_count = Cart.objects.filter(user=request.user).count()
+            print("cart_items_count", cart_items_count)
 
         context = {'homepage_banner_data_k': homepage_banner_data, 'product_category_k': product_category,
                    'product_list_data_k': product_list_data, 'deal_of_day_data_k': deal_of_day_data,
