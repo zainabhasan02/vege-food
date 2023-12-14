@@ -73,7 +73,7 @@
                         <a class="dropdown-item" href="{% url 'cart:view_wishlist' %}">Wishlist</a>
                         <a class="dropdown-item" href="{% url 'index' %}">Single Product</a>
                         <a class="dropdown-item" href="{% url 'cart:view_cart' %}">Cart</a>
-                        <a class="dropdown-item" href="{% url 'cart:checkout' %}">Checkout</a>
+                        <a class="dropdown-item" href="{% url 'users:billing_address' %}">Checkout</a>
                     </div>
                 </li>
                 <li class="nav-item"><a href="{% url 'users:about' %}" class="nav-link">About</a></li>
@@ -152,7 +152,7 @@
                                 </div>
                             </td>
 
-                            <td class="total">${{cart_items.product.price}}</td>
+                            <td class="total">${{cart_items.product.calculate_total_cost }}</td>
                         </tr><!-- END TR-->
                         {% endfor %}
                         </tbody>
@@ -175,7 +175,7 @@
                         </div>
                     </form>
                 </div>
-                <p><a href="{% url 'cart:checkout' %}" class="btn btn-primary py-3 px-4">Apply Coupon</a></p>
+                <p><a href="{% url 'users:billing_address' %}" class="btn btn-primary py-3 px-4">Apply Coupon</a></p>
             </div>
             <div class="col-lg-4 mt-5 cart-wrap ftco-animate">
                 <div class="cart-total mb-3">
@@ -196,7 +196,7 @@
                         </div>
                     </form>
                 </div>
-                <p><a href="{% url 'cart:checkout' %}" class="btn btn-primary py-3 px-4">Estimate</a></p>
+                <p><a href="{% url 'users:billing_address' %}" class="btn btn-primary py-3 px-4">Estimate</a></p>
             </div>
             <div class="col-lg-4 mt-5 cart-wrap ftco-animate">
                 <div class="cart-total mb-3">
@@ -219,7 +219,7 @@
                         <span>$17.60</span>
                     </p>
                 </div>
-                <p><a href="{% url 'cart:checkout' %}" class="btn btn-primary py-3 px-4">Proceed to Checkout</a></p>
+                <p><a href="{% url 'users:billing_address' %}" class="btn btn-primary py-3 px-4">Proceed to Checkout</a></p>
             </div>
         </div>
     </div>

@@ -469,15 +469,11 @@
         } else if (isNaN(phn) || phn.length !== 10) {
             alert('Please enter a valid phone number with 10 digits.');
             return false;
-        } console.log('Validation started');
-        else if (!validator.isEmail(email)) {
+        } else if (!validateEmail(email)) {
             console.log('Invalid email detected');
             alert('Please enter a valid email address.');
             return false;
-        }
-        console.log('Validation passed');
-
-        else {
+        } else {
             // Add more validation rules as needed for each field
 
             // If all validation passes
@@ -485,6 +481,11 @@
         }
     }
 
+    function validateEmail(email) {
+        // Regular expression for a simple email validation
+          const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+          return emailRegex.test(email);
+    }
 </script>
 
 </body>

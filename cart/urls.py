@@ -7,7 +7,6 @@ from cart import views
 
 app_name = 'cart'
 urlpatterns = [
-    # url(r'^$', CartView.as_view(), name='cart'),
     # Map the add_to_cart method to a URL with a product_id parameter
     path('add_to_cart/<int:product_id>/', AddToCartView.as_view(), name='add_to_cart'),
     # Map the get method to a URL for viewing the cart
@@ -20,8 +19,7 @@ urlpatterns = [
     path('view_wishlist/', WishlistView.as_view(), name='view_wishlist'),
     path('delete_wishlist_item/<int:item_id>/', views.delete_wishlist_item, name='delete_wishlist_item'),
 
-    # url(r'^checkout/$', CheckoutView.as_view(), name='checkout'),
     url(r'^shop/$', ShopView.as_view(), name='shop'),
     path('shop/<str:category>/', ShopView.as_view(), name='shop_by_category'),
-    # url(r'^wishlist/$', WishlistView.as_view(), name='wishlist'),
+
 ]

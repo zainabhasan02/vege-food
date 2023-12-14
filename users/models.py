@@ -47,12 +47,11 @@ class BillingAddress(models.Model):
     last_name = models.CharField(max_length=255, null=True, blank=True)
     state = models.CharField(max_length=255, null=True, blank=True)
     street1 = models.CharField(max_length=255, null=True, blank=True)
-    street2 = models.CharField(max_length=255)
+    street2 = models.CharField(max_length=255, null=True, blank=True)
     city = models.CharField(max_length=255, null=True, blank=True)
     post_code = models.IntegerField(null=True, blank=True)
     phone = models.IntegerField(null=True, blank=True)
     email = models.CharField(max_length=255, null=True, blank=True)
-
 
     def __str__(self):
         return self.first_name

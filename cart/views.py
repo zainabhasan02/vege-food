@@ -59,7 +59,7 @@ class CartView(View):
             return redirect('accounts:login')  # Redirect to the login page
 
 
-def delete_cart_item(request, item_id):
+def delete_cart_item(item_id):
     cart_item = get_object_or_404(Cart, id=item_id)
     cart_item.delete()
     return redirect('cart:view_cart')
@@ -97,7 +97,7 @@ class WishlistView(View):
             return redirect('accounts:login')  # Redirect to the login page
 
 
-def delete_wishlist_item(request, item_id):
+def delete_wishlist_item(item_id):
     cart_item = get_object_or_404(WishlistItem, id=item_id)
     cart_item.delete()
     return redirect('cart:view_wishlist')

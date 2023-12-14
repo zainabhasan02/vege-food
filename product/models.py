@@ -1,3 +1,4 @@
+from decimal import Decimal
 
 from django.db import models
 
@@ -25,7 +26,7 @@ class Product(models.Model):
     product_image = models.ImageField(upload_to='product_images', null=True, blank=True, verbose_name="product_image")
     out_of_stock = models.BooleanField(default=False, null=True, blank=True, verbose_name="out_of_stock")
     price = models.IntegerField(null=True, blank=True, verbose_name="price")
-    discount_percentage = models.IntegerField(null=True, blank=True, verbose_name="discount_percentage")
+    discount_percentage = models.DecimalField(max_digits=5, decimal_places=2, null=True, blank=True, verbose_name="discount_percentage")
     product_category = models.ForeignKey(ProductCategory, on_delete=models.SET_NULL, null=True, blank=True,
                                          verbose_name="product_category")
     product_order = models.IntegerField(default=0, null=True, blank=True, verbose_name="product_order")
@@ -40,9 +41,12 @@ class Product(models.Model):
         ordering = ["name"]
 
     def calculate_discounted_amount(self):
-        if self.discount_percentage:
-            calculated_discount = (self.price * self.discount_percentage) / 100
-            discounted_amount = self.price - calculated_discount
+        if self.discount_percentage is not None:
+            # calculated_discount = (self.price * self.discount_percentage) / 100
+            # discounted_amount = self.price - calculated_discount
+
+            calculated_discount = (Decimal(self.price) * Decimal(self.discount_percentage)) / Decimal(100)
+            discounted_amount = Decimal(self.price) - calculated_discount
 
             return discounted_amount
 
