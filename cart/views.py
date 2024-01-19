@@ -45,23 +45,39 @@ class CartView(View):
     def get(self, request):
         if request.user.is_authenticated:
             user_cart_items = Cart.objects.filter(user=request.user)
-            cart_items_count = user_cart_items.count()  # Count the number of cart items
+            # user_cart_items = Cart.objects.filter(user=request.user)
             print("user_cart_item", user_cart_items)
-            print("cart_items_count", cart_items_count)
 
-            context = {
-                'cart_items_count_k': cart_items_count,
-                'user_cart_items_k': user_cart_items
-            }
-            return render(request, 'cart.html', context)
+            if user_cart_items:
+                # total_price = user_cart_items.calculate_total_price()
+                # Calculate total price for each cart item
+                for cart in user_cart_items:
+                    cart.total_price = cart.calculate_total_price()
+                    print("total_price_of_cart_items", cart.total_price)
+
+                cart_items_count = user_cart_items.count()  # Count the number of cart items
+                print("cart_items_count", cart_items_count)
+                context = {
+                    # 'total_price_k': total_price,
+                    'cart_items_count_k': cart_items_count,
+                    'user_cart_items_k': user_cart_items
+                }
+                messages.success(request, 'Cart details fetched successfully')
+                return render(request, 'cart.html', context)
+            else:
+                messages.info(request, 'No items in the cart')
+            return redirect('index')
+
         else:
             # Handle the case where the user is not authenticated
             return redirect('accounts:login')  # Redirect to the login page
 
 
-def delete_cart_item(item_id):
+def delete_cart_item(request, item_id):
     cart_item = get_object_or_404(Cart, id=item_id)
     cart_item.delete()
+    print("item id ", item_id, " deleted")
+    messages.success(request, 'one item deleted')
     return redirect('cart:view_cart')
 
 
@@ -75,6 +91,7 @@ class AddToWishlistView(View):
 
             print("product id for wishlist is ", product)
             print("wishlist_item", wishlist_item)
+            messages.success(request, 'Item added to wishlist')
 
             return redirect('cart:view_wishlist')
         else:
@@ -97,9 +114,10 @@ class WishlistView(View):
             return redirect('accounts:login')  # Redirect to the login page
 
 
-def delete_wishlist_item(item_id):
+def delete_wishlist_item(request, item_id):
     cart_item = get_object_or_404(WishlistItem, id=item_id)
     cart_item.delete()
+    messages.success(request, 'one item deleted')
     return redirect('cart:view_wishlist')
 
 

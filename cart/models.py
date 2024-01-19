@@ -11,25 +11,37 @@ class Cart(models.Model):
     addtime = models.DateTimeField(auto_now_add=True)
     quantity = models.PositiveIntegerField(default=1)  # to store the quantity of each product in the cart
 
-    def __str__(self):
-        # return f'Cart for {self.user.username}'
-        return f'Cart for {self.user.username} - Product: {self.product}'
-
     class Meta:
         ordering = ["user"]
 
-    def calculate_total_cost(self):
-        # Assuming you have an instance of the Cart model
-        product = self.product
-        quantity = self.quantity
+    def __str__(self):
+        # return f'Cart for {self.user.username}'
+        return f'Cart for {self.user.username} - Product: {self.product}'
+        # return f'Cart for {self.user.username}'
 
-        discounted_amount = product.calculate_discounted_amount()
-        if discounted_amount is not None:
-            total_cost = discounted_amount * quantity
-        else:
-            total_cost = product.price * quantity
+    def calculate_total_price(self):
+        total_price = 0
 
-        return total_cost
+        # Iterate over items in the cart
+        for cart_item in self.cartitem_set.all():  # Assuming 'CartItem' is the related name for the cart items
+            product = cart_item.product
+
+            # Check if the product has a discount
+            if product.discount_percentage:
+                discounted_amount = product.calculate_discounted_amount()
+                total_price += discounted_amount * cart_item.quantity
+                print("discounted_total_price", total_price)
+            else:
+                total_price += product.price * cart_item.quantity
+                print("_total_price", total_price)
+
+        return total_price
+
+
+class CartItem(models.Model):
+    cart = models.ForeignKey(Cart, on_delete=models.CASCADE)
+    product = models.ForeignKey(Product, on_delete=models.CASCADE)
+    quantity = models.PositiveIntegerField(default=1)
 
 
 class WishlistItem(models.Model):
@@ -42,4 +54,3 @@ class WishlistItem(models.Model):
 
     class Meta:
         ordering = ["user"]
-

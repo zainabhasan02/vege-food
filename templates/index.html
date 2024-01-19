@@ -29,6 +29,7 @@
     <link rel="stylesheet" href="{% static 'css/flaticon.css' %}">
     <link rel="stylesheet" href="{% static 'css/icomoon.css' %}">
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
 
 </head>
 <body class="goto-here">
@@ -81,8 +82,7 @@
                 <li class="nav-item"><a href="{% url 'blog' %}" class="nav-link">Blog</a></li>
                 <li class="nav-item"><a href="{% url 'users:contact' %}" class="nav-link">Contact</a></li>
                 <li class="nav-item cta cta-colored"><a href="{% url 'cart:view_cart' %}" class="nav-link"><span
-                        class="icon-shopping_cart"></span>{% if user.is_authenticated %}[{{cart_items_count_k}}]{% endif
-                    %}</a></li>
+                        class="icon-shopping_cart"></span>{% if user.is_authenticated %}[{{cart_items_count_k}}]{% endif %}</a></li>
 
                 {% if user.is_authenticated %}
                 <li class="nav-item"><a style="" class="nav-link">Hello, <b>{{user.first_name}}</b></a></li>
@@ -111,8 +111,7 @@
                         {% endif %}
                         <!--<h2 class="subheading mb-4">We deliver organic vegetables &amp; fruits</h2>-->
                         {% if homepage_banner.button_text %}
-                        <p><a href="{{ homepage_banner.banner_url|default:'#' }}" class="btn btn-primary">{{
-                            homepage_banner.button_text }}</a></p>
+                        <p><a href="{{ homepage_banner.banner_url|default:'#' }}" class="btn btn-primary">{{ homepage_banner.button_text }}</a></p>
                         {% endif %}
                     </div>
                 </div>
@@ -475,5 +474,30 @@
 <script src="{% static 'js/google-map.js' %}"></script>
 <script src="{% static 'js/main.js' %}"></script>
 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+<script>
+    // Initialize Toastr
+    toastr.options = {
+        "positionClass": "toast-top-right",
+        "progressBar": true,
+        "closeButton": true,
+    };
+
+    // Display Django messages with Toastr
+    {% for message in messages %}
+        {% if message.tags %}
+            {% if message.tags == 'success' %}
+                toastr.success("{{ message }}");
+            {% elif message.tags == 'info' %}
+                toastr.info("{{ message }}");
+            {% elif message.tags == 'warning' %}
+                toastr.warning("{{ message }}");
+            {% elif message.tags == 'error' %}
+                toastr.error("{{ message }}");
+            {% endif %}
+        {% endif %}
+    {% endfor %}
+
+</script>
 </body>
 </html>

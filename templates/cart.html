@@ -29,6 +29,8 @@
     <link rel="stylesheet" href="{% static 'css/flaticon.css' %}">
     <link rel="stylesheet" href="{% static 'css/icomoon.css' %}">
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
+
 </head>
 <body class="goto-here">
 <div class="py-1 bg-primary">
@@ -128,8 +130,9 @@
                         <tbody>
                         {% for cart_items in user_cart_items_k %}
                         <tr class="text-center">
-                            <td class="product-remove"><a href="{% url 'cart:delete_cart_item' cart_items.id %}"><span
-                                    class="ion-ios-close"></span></a></td>
+                            <td class="product-remove">
+                                <a href="{% url 'cart:delete_cart_item' cart_items.id %}">
+                                    <span class="ion-ios-close"></span></a></td>
 
                             <td class="image-prod">
                                 <div class="img"
@@ -152,9 +155,14 @@
                                 </div>
                             </td>
 
-                            <td class="total">${{cart_items.product.calculate_total_cost }}</td>
+                            <td class="total">${{ total_price }}</td>
                         </tr><!-- END TR-->
                         {% endfor %}
+                        <!-- Display the total price of the cart -->
+                        <tr class="text-center">
+                            <td colspan="5" class="total-label">Total Price</td>
+                            <td class="total">${{ total_cart_price }}</td>
+                        </tr>
                         </tbody>
                     </table>
                     {% else %}
@@ -219,7 +227,8 @@
                         <span>$17.60</span>
                     </p>
                 </div>
-                <p><a href="{% url 'users:billing_address' %}" class="btn btn-primary py-3 px-4">Proceed to Checkout</a></p>
+                <p><a href="{% url 'users:billing_address' %}" class="btn btn-primary py-3 px-4">Proceed to Checkout</a>
+                </p>
             </div>
         </div>
     </div>
@@ -389,7 +398,31 @@
 
 
 
+</script>
 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+<script>
+    // Initialize Toastr
+    toastr.options = {
+        "positionClass": "toast-top-right",
+        "progressBar": true,
+        "closeButton": true,
+    };
+
+    // Display Django messages with Toastr
+    {% for message in messages %}
+        {% if message.tags %}
+            {% if message.tags == 'success' %}
+                toastr.success("{{ message }}");
+            {% elif message.tags == 'info' %}
+                toastr.info("{{ message }}");
+            {% elif message.tags == 'warning' %}
+                toastr.warning("{{ message }}");
+            {% elif message.tags == 'error' %}
+                toastr.error("{{ message }}");
+            {% endif %}
+        {% endif %}
+    {% endfor %}
 
 
 
